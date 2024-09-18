@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/screens/chats_screen.dart';
-import 'package:photo_app/widgets/button_black.dart';
-import 'package:photo_app/widgets/button_white.dart';
+import 'package:photo_app/widgets/primary_button.dart';
 import 'package:photo_app/widgets/images_grid_profile.dart';
 import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
@@ -46,8 +45,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     MainHeading(textHeading: 'Jane', paddingBottom: 5),
                     MainTitle(textTitle: 'San Francisco, CA', paddingBottom: 30),
-                    ButtonBlack(textButton: 'Follow Jane', Url: ProfileScreen()),
-                    ButtonWhite(textButton: 'Message', Url: ChatsScreen(), paddingBottom: 30),
+                    PrimaryButton(
+                      textButton: 'Follow Jane',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    PrimaryButton(
+                      textButton: 'Message',
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      paddingBottom: 30,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatsScreen(),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -58,9 +80,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ImagesGridProfile(),
-                    ButtonWhite(
-                        textButton: 'See More',
-                        Url: ProfileScreen()),
+                    PrimaryButton(
+                      textButton: 'See More',
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatsScreen(),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

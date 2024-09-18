@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
-import 'package:photo_app/widgets/form_field_black.dart';
+import 'package:photo_app/widgets/form_field_text.dart';
 import 'package:photo_app/widgets/images_load_more_grid.dart';
-import 'package:photo_app/widgets/button_white.dart';
 
 class SearchResultsScreen extends StatefulWidget {
   const SearchResultsScreen({Key? key}) : super(key: key);
@@ -32,6 +30,7 @@ class _SearchResultsState extends State<SearchResultsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MainHeading(textHeading: 'Search'),
+                    FormFieldText(textHint: 'dogs'),
                   ],
                 ),
               ),

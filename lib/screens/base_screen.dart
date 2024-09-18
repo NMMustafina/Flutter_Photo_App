@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:photo_app/screens/login_screen.dart';
-import 'package:photo_app/screens/profile_screen.dart';
-import 'package:photo_app/screens/register_step_one_screen.dart';
+import 'package:photo_app/screens/auth_screen.dart';
 import 'package:photo_app/widgets/user_info.dart';
-import 'package:photo_app/widgets/button_white.dart';
-import 'package:photo_app/widgets/button_black.dart';
+import 'package:photo_app/widgets/primary_button.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key, required this.title});
@@ -18,9 +15,8 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
+    return Scaffold(
+        backgroundColor: Colors.white,
         body: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -83,16 +79,32 @@ class _BaseScreenState extends State<BaseScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: ButtonWhite(
+                    child: PrimaryButton(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
                       textButton: "Log in",
-                      Url: const ProfileScreen(),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AuthScreen(isLogin: true),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
-                    child: ButtonBlack(
+                    child: PrimaryButton(
                       textButton: "Register",
-                      Url: const RegisterStepOneScreen(),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AuthScreen(isLogin: false),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -100,7 +112,6 @@ class _BaseScreenState extends State<BaseScreen> {
             ),
           ],
         ),
-      ),
     );
   }
 }

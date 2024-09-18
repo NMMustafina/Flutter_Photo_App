@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/screens/search_results_screen.dart';
+import 'package:photo_app/screens/search_screen.dart';
 import 'package:photo_app/widgets/image_card.dart';
 import 'package:photo_app/widgets/images_grid.dart';
 import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
-import 'package:photo_app/widgets/button_white.dart';
+import 'package:photo_app/widgets/primary_button.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({Key? key}) : super(key: key);
@@ -45,7 +46,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     color: Colors.white,
                   ),
                   child: ListView(
-                      //padding: EdgeInsets.zero,
                       primary: false,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -86,9 +86,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   children: [
                     MainTitle(textTitle: 'Browse all'),
                     ImagesGrid(),
-                    ButtonWhite(
-                        textButton: 'See More',
-                        Url: SearchResultsScreen()),
+                    PrimaryButton(
+                      textButton: 'See More',
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchResultsScreen(),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

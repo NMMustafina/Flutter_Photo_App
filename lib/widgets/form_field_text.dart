@@ -1,36 +1,20 @@
 import 'package:flutter/material.dart';
 
-class FormFieldBlack extends StatefulWidget {
-  // Переменная, которую мы передаем через конструктор
+class FormFieldText extends StatelessWidget {
   final String textHint;
   final bool toggleObscure;
+  final TextEditingController? controller;
 
-  // Конструктор для передачи переменной
-  FormFieldBlack({required this.textHint, this.toggleObscure = false});
-
-  @override
-  _FormFieldBlackState createState() => _FormFieldBlackState();
-}
-
-class _FormFieldBlackState extends State<FormFieldBlack> {
-  late String _textHint;
-  late bool _toggleObscure;
-
-  @override
-  void initState() {
-    super.initState();
-    // Инициализируем локальную переменную значением, переданным в виджет
-    _textHint = widget.textHint;
-    _toggleObscure = widget.toggleObscure;
-  }
+  FormFieldText({required this.textHint, this.toggleObscure = false, this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
       child: TextFormField(
-        autofocus: true,
-        obscureText: _toggleObscure,
+        controller: controller,
+        //autofocus: true,
+        obscureText: toggleObscure,
         decoration: InputDecoration(
           isDense: true,
           labelStyle: TextStyle(
@@ -38,7 +22,7 @@ class _FormFieldBlackState extends State<FormFieldBlack> {
             fontSize: 15,
             letterSpacing: 0.0,
           ),
-          hintText: _textHint,
+          hintText: textHint,
           hintStyle: TextStyle(
             fontFamily: 'Roboto',
             fontSize: 15,

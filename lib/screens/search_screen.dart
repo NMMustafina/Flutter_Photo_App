@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/widgets/main_heading.dart';
-import 'package:photo_app/widgets/form_field_black.dart';
+import 'package:photo_app/widgets/form_field_text.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -23,8 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MainHeading(textHeading: 'Search'),
-              FormFieldBlack(
-                  textHint: 'Search all photos'),
+              FormFieldText(textHint: 'Search all photos'),
             ],
           ),
         ),
