@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_app/screens/chats_screen.dart';
+import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/primary_button.dart';
 import 'package:photo_app/widgets/images_grid_profile.dart';
 import 'package:photo_app/widgets/mail_title.dart';
@@ -13,10 +15,36 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      key: scaffoldKey,
+      endDrawer: EndDrawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading:
+        IconButton(
+          icon: SvgPicture.asset('assets/images/arrow.svg',
+            width: 16,
+            height: 16,
+            fit: BoxFit.cover,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              scaffoldKey.currentState!.openEndDrawer();
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
@@ -48,12 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     PrimaryButton(
                       textButton: 'Follow Jane',
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProfileScreen(),
-                          ),
-                        );
+                        Navigator.pushNamed(context, '/profile');
                       },
                     ),
                     PrimaryButton(
@@ -62,12 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       foregroundColor: Colors.black,
                       paddingBottom: 30,
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChatsScreen(),
-                          ),
-                        );
+                        Navigator.pushNamed(context, '/chats');
                       },
                     ),
                   ],

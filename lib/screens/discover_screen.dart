@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:photo_app/screens/search_results_screen.dart';
-import 'package:photo_app/screens/search_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/image_card.dart';
 import 'package:photo_app/widgets/images_grid.dart';
 import 'package:photo_app/widgets/mail_title.dart';
@@ -15,10 +15,36 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      key: scaffoldKey,
+      endDrawer: EndDrawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading:
+        IconButton(
+          icon: SvgPicture.asset('assets/images/arrow.svg',
+              width: 16,
+              height: 16,
+              fit: BoxFit.cover,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              scaffoldKey.currentState!.openEndDrawer();
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
@@ -27,7 +53,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 32, 16, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,12 +117,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.black,
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchResultsScreen(),
-                          ),
-                        );
+                        Navigator.pushNamed(context, '/search');
                       },
                     ),
                   ],

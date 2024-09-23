@@ -25,13 +25,13 @@ class _IndividualChatsScreenState extends State<IndividualChatsScreen> {
         ),
         title: MainTitle(textTitle: 'James', paddingBottom: 0),
         centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.menu),
-        //     onPressed: () {
-        //     },
-        //   ),
-        // ],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         top: true,

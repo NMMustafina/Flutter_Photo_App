@@ -23,7 +23,7 @@ class ImageSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Если imageWidth не передан, то ширина по умолчанию - ширина экрана
-    final double defaultWidth = imageWidth ?? MediaQuery.of(context).size.width;
+    final double defaultWidth = imageWidth ?? MediaQuery.sizeOf(context).width;
 
     return Container(
       child: GestureDetector(

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class FormFieldText extends StatelessWidget {
   final String textHint;
   final bool toggleObscure;
-  final TextEditingController? controller;
+  final TextEditingController? textController;
 
-  FormFieldText({required this.textHint, this.toggleObscure = false, this.controller});
+  FormFieldText({required this.textHint, this.toggleObscure = false, this.textController});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
       child: TextFormField(
-        controller: controller,
+        controller: textController,
         //autofocus: true,
         obscureText: toggleObscure,
         decoration: InputDecoration(
@@ -20,13 +20,11 @@ class FormFieldText extends StatelessWidget {
           labelStyle: TextStyle(
             fontFamily: 'Roboto',
             fontSize: 15,
-            letterSpacing: 0.0,
           ),
           hintText: textHint,
           hintStyle: TextStyle(
             fontFamily: 'Roboto',
             fontSize: 15,
-            letterSpacing: 0.0,
             fontWeight: FontWeight.normal,
           ),
           enabledBorder: OutlineInputBorder(
@@ -64,7 +62,6 @@ class FormFieldText extends StatelessWidget {
         style: TextStyle(
           fontFamily: 'Roboto',
           fontSize: 15,
-          letterSpacing: 0.0,
         ),
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,

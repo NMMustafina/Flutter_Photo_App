@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_app/firebase_service.dart';
-import 'package:photo_app/screens/search_screen.dart';
 import 'package:photo_app/widgets/primary_button.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 import 'package:photo_app/widgets/form_field_text.dart';
-import 'package:photo_app/screens/discover_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key, required this.isLogin});
   final bool isLogin;
-  final bool isVisible = true;
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -38,15 +35,13 @@ class _AuthScreenState extends State<AuthScreen> {
           email: emailController.text,
           password: passwordController.text,
         );
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DiscoverScreen()));
+        Navigator.pushNamed(context, '/discover');
       } else {
         firebaseService.onRegister(
           email: emailController.text,
           password: passwordController.text,
         );
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SearchScreen()));
+        Navigator.pushNamed(context, '/discover');
       }
     };
 
@@ -81,11 +76,11 @@ class _AuthScreenState extends State<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MainHeading(textHeading: buttonText),
-              FormFieldText(textHint: 'Email', controller: emailController),
+              FormFieldText(textHint: 'Email', textController: emailController),
               FormFieldText(
                   textHint: 'Password',
                   toggleObscure: true,
-                  controller: passwordController),
+                  textController: passwordController),
               PrimaryButton(
                 textButton: buttonText,
                 onPressed: onAuth,
