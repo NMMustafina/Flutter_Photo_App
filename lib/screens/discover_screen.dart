@@ -111,7 +111,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MainTitle(textTitle: 'Browse all'),
-                    ImagesGrid(),
+                    //ImagesGrid(),
                     PrimaryButton(
                       textButton: 'See More',
                       backgroundColor: Colors.white,

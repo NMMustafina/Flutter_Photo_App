@@ -4,7 +4,7 @@ import 'package:photo_app/widgets/image_full.dart';
 class ImageSmall extends StatelessWidget {
   final String imageUrl;
   final double? imageWidth;
-  final double imageHeight;
+  final double? imageHeight;
   final String pathAvatar;
   final String textUsername;
   final String textLogin;
@@ -13,7 +13,7 @@ class ImageSmall extends StatelessWidget {
       {Key? key,
       required this.imageUrl,
       this.imageWidth,
-      required this.imageHeight,
+      this.imageHeight,
       required this.pathAvatar,
       required this.textUsername,
       required this.textLogin,
@@ -40,7 +40,7 @@ class ImageSmall extends StatelessWidget {
             ),
           );
         },
-        child: Image.asset(
+        child: Image.network(
           imageUrl,
           width: defaultWidth,
           height: imageHeight,

@@ -23,7 +23,7 @@ class ImageFull extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Image.asset(
+              child: Image.network(
                 imageUrl,
                 width: double.infinity,
                 height: double.infinity,

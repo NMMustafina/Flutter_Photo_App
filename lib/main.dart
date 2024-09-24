@@ -6,6 +6,7 @@ import 'package:photo_app/screens/chats_screen.dart';
 import 'package:photo_app/screens/discover_screen.dart';
 import 'package:photo_app/screens/profile_screen.dart';
 import 'package:photo_app/screens/search_results_screen.dart';
+import 'package:photo_app/screens/test.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,11 +31,12 @@ class PhotoApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const BaseScreen(title: 'Photo App'),
-      initialRoute: '/',
+      initialRoute: '/profile',
       routes: {
+        '/test': (context) =>  ImagesGrid(),
         '/home': (context) => const BaseScreen(title: 'Photo App'),
         '/discover': (context) => const DiscoverScreen(),
-        '/profile': (context) => const ProfileScreen(),
+        '/profile': (context) => ProfileScreen(userID: 'uRMRfzkrvy0euitnOnvM'),
         '/search': (context) => const SearchResultsScreen(),
         '/chats': (context) => const ChatsScreen(),
       },

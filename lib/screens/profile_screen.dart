@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:photo_app/screens/chats_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
+import 'package:photo_app/widgets/images_grid.dart';
 import 'package:photo_app/widgets/primary_button.dart';
-import 'package:photo_app/widgets/images_grid_profile.dart';
 import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  final String userID;
+
+  ProfileScreen({required this.userID});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -16,6 +18,25 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // Функция для получения данных пользователя по userID
+  Future<Map<String, dynamic>?> getUserData(String userID) async {
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('userID', isEqualTo: userID)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.data() as Map<String, dynamic>;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Error getting user data: $e');
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +46,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       endDrawer: EndDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading:
-        IconButton(
-          icon: SvgPicture.asset('assets/images/arrow.svg',
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/arrow.svg',
             width: 16,
             height: 16,
-            fit: BoxFit.cover,),
+            fit: BoxFit.cover,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -46,75 +68,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       body: SafeArea(
-        top: true,
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 32, 16, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 30),
-                      width: 128,
-                      height: 128,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.asset(
-                        'assets/images/avatar/avatar_07.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    MainHeading(textHeading: 'Jane', paddingBottom: 5),
-                    MainTitle(textTitle: 'San Francisco, CA', paddingBottom: 30),
-                    PrimaryButton(
-                      textButton: 'Follow Jane',
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                    ),
-                    PrimaryButton(
-                      textButton: 'Message',
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
-                      paddingBottom: 30,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/chats');
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ImagesGridProfile(),
-                    PrimaryButton(
-                      textButton: 'See More',
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChatsScreen(),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 32, 16, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                FutureBuilder<Map<String, dynamic>?>(
+                  future: getUserData(
+                      widget.userID), // Получаем данные пользователя
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else if (!snapshot.hasData || snapshot.data == null) {
+                      return Center(
+                          child: Text(
+                              'No user found with userID: ${widget.userID}'));
+                    } else {
+                      // Получаем данные пользователя
+                      Map<String, dynamic> userData = snapshot.data!;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(bottom: 30),
+                            width: 128,
+                            height: 128,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.network(
+                              userData['avatar'],
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                          MainHeading(
+                              textHeading:
+                                  '${userData['username'].split(' ')[0]}',
+                              paddingBottom: 5),
+                          MainTitle(
+                              textTitle: '${userData['address']}',
+                              paddingBottom: 30),
+                          PrimaryButton(
+                            textButton:
+                                'Follow ${userData['username'].split(' ')[0]}',
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/profile');
+                            },
+                          ),
+                          PrimaryButton(
+                            textButton: 'Message',
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            paddingBottom: 30,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/chats');
+                            },
+                          ),
+                        ],
+                      );
+                    }
+                  },
                 ),
-              ),
-            ],
+                ImagesGrid(userID: 'uRMRfzkrvy0euitnOnvM'),
+              ],
+            ),
           ),
         ),
       ),
