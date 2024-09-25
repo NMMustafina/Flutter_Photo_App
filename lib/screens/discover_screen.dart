@@ -5,7 +5,6 @@ import 'package:photo_app/widgets/image_card.dart';
 import 'package:photo_app/widgets/images_grid.dart';
 import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
-import 'package:photo_app/widgets/primary_button.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({Key? key}) : super(key: key);
@@ -111,15 +110,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MainTitle(textTitle: 'Browse all'),
-                    //ImagesGrid(),
-                    PrimaryButton(
-                      textButton: 'See More',
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/search');
-                      },
-                    ),
+                    ImagesGrid(category: 'browse-all',),
                   ],
                 ),
               ),

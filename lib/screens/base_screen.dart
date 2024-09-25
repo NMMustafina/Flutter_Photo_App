@@ -25,8 +25,8 @@ class _BaseScreenState extends State<BaseScreen> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: Image.asset(
-                      'assets/images/home/bg.png',
+                    image: Image.network(
+                      'https://i.postimg.cc/L84FRCD0/bg.png',
                     ).image,
                   ),
                 ),

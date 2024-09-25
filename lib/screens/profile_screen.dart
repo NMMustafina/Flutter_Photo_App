@@ -8,9 +8,9 @@ import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 
 class ProfileScreen extends StatefulWidget {
-  final String userID;
+  final String userId;
 
-  ProfileScreen({required this.userID});
+  ProfileScreen({required this.userId});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -19,12 +19,12 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Функция для получения данных пользователя по userID
-  Future<Map<String, dynamic>?> getUserData(String userID) async {
+  // Функция для получения данных пользователя по userId
+  Future<Map<String, dynamic>?> getUserData(String userId) async {
     try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('users')
-          .where('userID', isEqualTo: userID)
+          .where('userId', isEqualTo: userId)
           .get();
 
       if (snapshot.docs.isNotEmpty) {
@@ -76,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 FutureBuilder<Map<String, dynamic>?>(
                   future: getUserData(
-                      widget.userID), // Получаем данные пользователя
+                      widget.userId), // Получаем данные пользователя
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -85,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     } else if (!snapshot.hasData || snapshot.data == null) {
                       return Center(
                           child: Text(
-                              'No user found with userID: ${widget.userID}'));
+                              'No user found with userId: ${widget.userId}'));
                     } else {
                       // Получаем данные пользователя
                       Map<String, dynamic> userData = snapshot.data!;
@@ -133,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                   },
                 ),
-                ImagesGrid(userID: 'uRMRfzkrvy0euitnOnvM'),
+                ImagesGrid(userId: 'uRMRfzkrvy0euitnOnvM'),
               ],
             ),
           ),

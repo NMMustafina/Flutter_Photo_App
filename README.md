@@ -1,16 +1,25 @@
-# photo_app
+# Photo App
 
-A new Flutter project.
+<img src="https://i.postimg.cc/HxFcQCJn/Logged-out.png" alt="Logged-out" width="24%"></img>
+<img src="https://i.postimg.cc/kXQ6tz7M/Profile.png" alt="Profile" width="24%"></img>
+<img src="https://i.postimg.cc/m2m4qywN/Search.png" alt="Search" width="24%"></img>
+<img src="https://i.postimg.cc/RZqmzJpr/Chat.png" alt="Chat" width="24%"></img>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Another social network with pictures :camera:
 
-A few resources to get you started if this is your first Flutter project:
+- Created using [Flutter](https://flutter.dev/) and [Dart](https://dart.dev/)
+- Database [Firebase](https://firebase.google.com/)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### How to Run
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/NMMustafina/photo_app.git
+   ```
+2. Install all the packages by typing the following command
+   ```sh
+   flutter pub get
+   ```
+3. Run the App
