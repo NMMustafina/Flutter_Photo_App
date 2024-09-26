@@ -9,12 +9,11 @@ class ImageCard extends StatelessWidget {
   final String textLogin;
 
   const ImageCard(
-      {Key? key,
+      {super.key,
       required this.pathImageCard,
       required this.pathAvatar,
       required this.textUsername,
-      required this.textLogin})
-      : super(key: key);
+      required this.textLogin});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class ImageCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 16),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 16),
           child: ImageSmall(
             imageUrl: pathImageCard,
             imageWidth: MediaQuery.sizeOf(context).width - 32,

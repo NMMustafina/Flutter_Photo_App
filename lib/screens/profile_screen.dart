@@ -10,7 +10,7 @@ import 'package:photo_app/widgets/main_heading.dart';
 class ProfileScreen extends StatefulWidget {
   final String userId;
 
-  ProfileScreen({required this.userId});
+  const ProfileScreen({super.key, required this.userId});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       key: scaffoldKey,
-      endDrawer: EndDrawer(),
+      endDrawer: const EndDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () {
               scaffoldKey.currentState!.openEndDrawer();
             },
@@ -79,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       widget.userId), // Получаем данные пользователя
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else if (!snapshot.hasData || snapshot.data == null) {
@@ -93,11 +93,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(bottom: 30),
+                            margin: const EdgeInsets.only(bottom: 30),
                             width: 128,
                             height: 128,
                             clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
                             child: Image.network(
@@ -133,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                   },
                 ),
-                ImagesGrid(userId: 'uRMRfzkrvy0euitnOnvM'),
+                const ImagesGrid(userId: 'uRMRfzkrvy0euitnOnvM'),
               ],
             ),
           ),

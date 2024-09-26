@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:photo_app/services/images_info.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/image_card.dart';
 import 'package:photo_app/widgets/images_grid.dart';
@@ -7,7 +8,10 @@ import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 
 class DiscoverScreen extends StatefulWidget {
-  const DiscoverScreen({Key? key}) : super(key: key);
+  final String? userId;
+  final String? category;
+
+  const DiscoverScreen({super.key, this.userId, this.category = 'whats-new'});
 
   @override
   _DiscoverScreenState createState() => _DiscoverScreenState();
@@ -21,15 +25,16 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       key: scaffoldKey,
-      endDrawer: EndDrawer(),
+      endDrawer: const EndDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading:
-        IconButton(
-          icon: SvgPicture.asset('assets/images/arrow.svg',
-              width: 16,
-              height: 16,
-              fit: BoxFit.cover,),
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/arrow.svg',
+            width: 16,
+            height: 16,
+            fit: BoxFit.cover,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -37,7 +42,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () {
               scaffoldKey.currentState!.openEndDrawer();
             },
@@ -48,13 +53,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         top: true,
         child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MainHeading(textHeading: 'Discover'),
@@ -63,54 +66,66 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 37),
+                padding: const EdgeInsets.only(bottom: 37),
                 child: Container(
                   width: MediaQuery.sizeOf(context).width,
                   height: 400,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
-                  child: ListView(
-                      primary: false,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        SizedBox(width: 16),
-                        ImageCard(
-                          pathImageCard: 'assets/images/whats_new/image_01.png',
-                          pathAvatar: 'assets/images/avatar/avatar_02.png',
-                          textUsername: 'Ridhwan Nordin',
-                          textLogin: '@ridzjcob',
-                        ),
-                        ImageCard(
-                          pathImageCard: 'assets/images/whats_new/image_02.png',
-                          pathAvatar: 'assets/images/avatar/avatar_03.png',
-                          textUsername: 'Clem Onojeghuo',
-                          textLogin: '@clemono2',
-                        ),
-                        ImageCard(
-                          pathImageCard: 'assets/images/whats_new/image_03.png',
-                          pathAvatar: 'assets/images/avatar/avatar_04.png',
-                          textUsername: 'Jon Tyson',
-                          textLogin: '@jontyson',
-                        ),
-                        ImageCard(
-                          pathImageCard: 'assets/images/whats_new/image_04.png',
-                          pathAvatar: 'assets/images/avatar/avatar_05.png',
-                          textUsername: 'Simon Zhu',
-                          textLogin: '@smnzhu',
-                        ),
-                      ]),
+                  child:
+                      FutureBuilder<List<Map<String, dynamic>>>(
+                        future: getImagesWithUserInfo(
+                            widget.userId, widget.category),
+                        builder: (context,
+                            AsyncSnapshot<List<Map<String, dynamic>>>
+                                snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+
+                          if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Ошибка: ${snapshot.error}'));
+                          }
+
+                          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            return const Center(child: Text('Нет изображений'));
+                          }
+
+                          final imageData = snapshot.data!;
+
+                          return ListView.builder(
+                            padding: const EdgeInsets.only(left: 16),
+                            primary: false,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: imageData.length,
+                            itemBuilder: (context, index) {
+                              return ImageCard(
+                                pathImageCard: imageData[index]['imageLink'],
+                                pathAvatar: imageData[index]['avatar'],
+                                textUsername: imageData[index]['username'],
+                                textLogin: imageData[index]['login'],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                  ),
                 ),
-              ),
-              Padding(
+              const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     MainTitle(textTitle: 'Browse all'),
-                    ImagesGrid(category: 'browse-all',),
+                    ImagesGrid(
+                      category: 'browse-all',
+                    ),
                   ],
                 ),
               ),

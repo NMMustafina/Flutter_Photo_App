@@ -7,12 +7,11 @@ class UserInfo extends StatelessWidget {
   final Color textColor;
 
   const UserInfo(
-      {Key? key,
+      {super.key,
       required this.pathAvatar,
       required this.textUsername,
       required this.textLogin,
-      this.textColor = Colors.black})
-      : super(key: key);
+      this.textColor = Colors.black});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +27,14 @@ class UserInfo extends StatelessWidget {
             shape: BoxShape.circle,
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: Image.asset(
+              image: Image.network(
                 pathAvatar,
               ).image,
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+          padding: const EdgeInsets.only(left: 10),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
