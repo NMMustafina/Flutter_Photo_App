@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 
-class PrimaryButton extends StatelessWidget {
+class PrimaryElevatedButton extends StatelessWidget {
   final String textButton;
   final double? paddingBottom;
-  final Color? backgroundColor;
-  final Color? foregroundColor;
   final Function()? onPressed;
 
-  const PrimaryButton(
-      {Key? key,
+  const PrimaryElevatedButton(
+      {super.key,
       required this.textButton,
       this.paddingBottom,
-      this.backgroundColor,
-      this.foregroundColor,
-      this.onPressed})
-      : super(key: key);
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +17,22 @@ class PrimaryButton extends StatelessWidget {
       padding: EdgeInsets.only(bottom: paddingBottom ?? 20),
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text('$textButton'.toUpperCase()),
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: backgroundColor ?? Colors.black,
-          foregroundColor: foregroundColor ?? Colors.white,
-          side: BorderSide(color: Colors.black, width: 2),
-          minimumSize: Size(double.infinity, 52),
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+          minimumSize: const Size(double.infinity, 52),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),
-          textStyle: TextStyle(
+          textStyle: const TextStyle(
             fontFamily: 'Roboto',
             fontSize: 13,
             fontWeight: FontWeight.w900,
           ),
         ),
+        child: Text(textButton.toUpperCase()),
       ),
     );
   }

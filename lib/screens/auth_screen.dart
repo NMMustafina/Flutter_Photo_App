@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_app/firebase_service.dart';
-import 'package:photo_app/widgets/primary_button.dart';
+import 'package:photo_app/widgets/primary_elevated_button.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 import 'package:photo_app/widgets/form_field_text.dart';
 
@@ -81,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   textHint: 'Password',
                   toggleObscure: true,
                   textController: passwordController),
-              PrimaryButton(
+              PrimaryElevatedButton(
                 textButton: buttonText,
                 onPressed: onAuth,
               ),

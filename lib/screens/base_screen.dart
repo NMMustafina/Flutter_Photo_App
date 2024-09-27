@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_app/screens/auth_screen.dart';
 import 'package:photo_app/services/images_info.dart';
+import 'package:photo_app/widgets/primary_outlined_button.dart';
 import 'package:photo_app/widgets/user_info.dart';
-import 'package:photo_app/widgets/primary_button.dart';
+import 'package:photo_app/widgets/primary_elevated_button.dart';
 
 class BaseScreen extends StatelessWidget {
   final String? userId;
@@ -99,9 +100,7 @@ class BaseScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                  child: PrimaryButton(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
+                  child: PrimaryOutlinedButton(
                     textButton: "Log in",
                     onPressed: () {
                       Navigator.push(
@@ -115,7 +114,7 @@ class BaseScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: PrimaryButton(
+                  child: PrimaryElevatedButton(
                     textButton: "Register",
                     onPressed: () {
                       Navigator.push(

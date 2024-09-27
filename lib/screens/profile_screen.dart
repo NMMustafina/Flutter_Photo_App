@@ -3,9 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/images_grid.dart';
-import 'package:photo_app/widgets/primary_button.dart';
+import 'package:photo_app/widgets/primary_elevated_button.dart';
 import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
+import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String userId;
@@ -112,17 +113,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           MainTitle(
                               textTitle: '${userData['address']}',
                               paddingBottom: 30),
-                          PrimaryButton(
+                          PrimaryElevatedButton(
                             textButton:
                                 'Follow ${userData['username'].split(' ')[0]}',
                             onPressed: () {
                               Navigator.pushNamed(context, '/profile');
                             },
                           ),
-                          PrimaryButton(
+                          PrimaryOutlinedButton(
                             textButton: 'Message',
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.black,
                             paddingBottom: 30,
                             onPressed: () {
                               Navigator.pushNamed(context, '/chats');

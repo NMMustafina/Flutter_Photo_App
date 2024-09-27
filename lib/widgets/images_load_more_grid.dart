@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/widgets/image_small.dart';
-import 'package:photo_app/widgets/primary_button.dart';
+import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class ImagesLoadMoreGrid extends StatefulWidget {
   @override
@@ -50,10 +50,8 @@ class _ImagesLoadMoreGridState extends State<ImagesLoadMoreGrid> {
             ),
           ),
         ),
-        PrimaryButton(
+        PrimaryOutlinedButton(
           textButton: 'See More',
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
           onPressed: _loadMoreImages,
         ),
       ],

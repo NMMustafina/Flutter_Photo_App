@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:photo_app/services/images_info.dart';
 import 'package:photo_app/widgets/image_small.dart';
-import 'package:photo_app/widgets/primary_button.dart';
+import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class ImagesGrid extends StatelessWidget {
   final String? userId;
@@ -57,10 +57,8 @@ class ImagesGrid extends StatelessWidget {
               },
             ),
           ),
-          PrimaryButton(
+          PrimaryOutlinedButton(
             textButton: 'See More',
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
             onPressed: () {},
           ),
         ],
