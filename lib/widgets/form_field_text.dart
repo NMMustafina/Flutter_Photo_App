@@ -1,69 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FormFieldText extends StatelessWidget {
   final String textHint;
   final bool toggleObscure;
+  final FormFieldValidator? validator;
   final TextEditingController? textController;
 
-  FormFieldText({required this.textHint, this.toggleObscure = false, this.textController});
+  const FormFieldText(
+      {super.key,
+      required this.textHint,
+      this.toggleObscure = false,
+      this.validator,
+      this.textController});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+      padding: const EdgeInsets.only(bottom: 16),
       child: TextFormField(
         controller: textController,
-        //autofocus: true,
         obscureText: toggleObscure,
+        validator: validator,
+        autofocus: true,
         decoration: InputDecoration(
           isDense: true,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             fontFamily: 'Roboto',
             fontSize: 15,
           ),
           hintText: textHint,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontFamily: 'Roboto',
             fontSize: 15,
             fontWeight: FontWeight.normal,
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.grey,
               width: 2,
             ),
             borderRadius: BorderRadius.circular(0),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.red,
+            borderSide: const BorderSide(
+              color: Color(0xFFB3261E),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(0),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.red,
+            borderSide: const BorderSide(
+              color: Color(0xFFB3261E),
               width: 2,
             ),
             borderRadius: BorderRadius.circular(0),
           ),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+          contentPadding: const EdgeInsets.all(16),
         ),
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Roboto',
           fontSize: 15,
         ),
         maxLines: 1,
+        inputFormatters: [LengthLimitingTextInputFormatter(50)],
         keyboardType: TextInputType.emailAddress,
         cursorColor: Colors.black,
       ),

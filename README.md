@@ -1,9 +1,9 @@
 # Photo App
 
-<img src="https://i.postimg.cc/HxFcQCJn/Logged-out.png" alt="Logged-out" width="24%"></img>
-<img src="https://i.postimg.cc/kXQ6tz7M/Profile.png" alt="Profile" width="24%"></img>
-<img src="https://i.postimg.cc/m2m4qywN/Search.png" alt="Search" width="24%"></img>
-<img src="https://i.postimg.cc/RZqmzJpr/Chat.png" alt="Chat" width="24%"></img>
+<img src="https://i.postimg.cc/KzTkGpYT/Logged-out.png" alt="Logged-out" width="24%"></img>
+<img src="https://i.postimg.cc/7LxTNnm8/Profile.png" alt="Profile" width="24%"></img>
+<img src="https://i.postimg.cc/vHs9ByfZ/Search.png" alt="Search" width="24%"></img>
+<img src="https://i.postimg.cc/RZbNcx6f/Chat.png" alt="Chat" width="24%"></img>
 
 
 ## Another social network with pictures :camera:

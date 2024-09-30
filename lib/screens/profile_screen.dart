@@ -80,7 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       widget.userId), // Получаем данные пользователя
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.black),
+                      ));
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else if (!snapshot.hasData || snapshot.data == null) {

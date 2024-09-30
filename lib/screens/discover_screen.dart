@@ -83,7 +83,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return const Center(
-                                child: CircularProgressIndicator());
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(Colors.black),
+                                ));
                           }
 
                           if (snapshot.hasError) {
