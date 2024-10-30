@@ -5,14 +5,18 @@ import 'package:photo_app/screens/base_screen.dart';
 import 'package:photo_app/screens/chats_screen.dart';
 import 'package:photo_app/screens/discover_screen.dart';
 import 'package:photo_app/screens/profile_screen.dart';
+import 'package:photo_app/screens/register.dart';
 import 'package:photo_app/screens/search_results_screen.dart';
 import 'package:photo_app/screens/test.dart';
+import 'services/service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  ServiceLocator.setup();
 
   runApp(const PhotoApp());
 }
@@ -28,15 +32,16 @@ class PhotoApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.black,
         fontFamily: 'Roboto',
-        useMaterial3: true,
+      //  useMaterial3: true,
       ),
       home: const BaseScreen(),
-      initialRoute: '/',
+      initialRoute: '/register',
       routes: {
-        '/test': (context) =>  MyHomePage(),
+        '/test': (context) =>  const MyApp(),
         '/home': (context) => const BaseScreen(),
+        '/register': (context) => const RegisterScreen(),
         '/discover': (context) => const DiscoverScreen(),
-        '/profile': (context) => ProfileScreen(userId: 'uRMRfzkrvy0euitnOnvM'),
+        '/profile': (context) => const ProfileScreen(userId: 'uRMRfzkrvy0euitnOnvM'),
         '/search': (context) => const SearchResultsScreen(),
         '/chats': (context) => const ChatsScreen(),
       },
