@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:photo_app/widgets/end_drawer.dart';
+import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/mail_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 import 'package:photo_app/widgets/form_field_text.dart';
@@ -21,29 +20,6 @@ class _SearchResultsState extends State<SearchResultsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       key: scaffoldKey,
-      endDrawer: EndDrawer(),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading:
-        IconButton(
-          icon: SvgPicture.asset('assets/images/arrow.svg',
-            width: 16,
-            height: 16,
-            fit: BoxFit.cover,),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              scaffoldKey.currentState!.openEndDrawer();
-            },
-          ),
-        ],
-      ),
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
@@ -52,7 +28,7 @@ class _SearchResultsState extends State<SearchResultsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 20, 16, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(16, 32, 16, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +52,9 @@ class _SearchResultsState extends State<SearchResultsScreen> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 1,
       ),
     );
   }

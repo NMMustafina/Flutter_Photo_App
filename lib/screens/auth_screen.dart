@@ -86,7 +86,7 @@ class _AuthScreenState extends State<AuthScreen> {
               Navigator.pop(context);
             },
             child: SvgPicture.asset(
-              'assets/images/arrow.svg',
+              'assets/images/icons/arrow.svg',
               width: 16,
               height: 16,
               fit: BoxFit.cover,

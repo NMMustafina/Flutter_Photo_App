@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/images_grid.dart';
 import 'package:photo_app/widgets/primary_elevated_button.dart';
@@ -49,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: SvgPicture.asset(
-            'assets/images/arrow.svg',
+            'assets/images/icons/arrow.svg',
             width: 16,
             height: 16,
             fit: BoxFit.cover,
@@ -139,6 +140,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 4,
       ),
     );
   }

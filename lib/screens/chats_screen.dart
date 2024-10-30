@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_app/screens/individual_chats_screen.dart';
+import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/chats_item.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/mail_title.dart';
@@ -25,7 +26,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         backgroundColor: Colors.white,
         leading:
         IconButton(
-          icon: SvgPicture.asset('assets/images/arrow.svg',
+          icon: SvgPicture.asset('assets/images/icons/arrow.svg',
             width: 16,
             height: 16,
             fit: BoxFit.cover,),
@@ -80,6 +81,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: 3,
       ),
     );
   }
