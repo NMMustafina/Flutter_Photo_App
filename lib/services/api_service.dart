@@ -1,8 +1,10 @@
 import 'dart:ffi';
 
 import 'package:dio/dio.dart';
+import 'package:photo_app/models/account_update_request.dart';
 import 'package:photo_app/models/auth_request.dart';
 import 'package:photo_app/models/register_request.dart';
+import 'package:photo_app/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/config.dart';
 import '../models/token_pair_response.dart';
@@ -12,10 +14,12 @@ class ApiService {
   final ApiClient _client = ApiClient();
   final Dio _unAuthClient = Dio(BaseOptions(baseUrl: Config.baseUrl));
 
+// POST-запрос для авторизации пользователя
   Future<bool> loginUser(AuthRequest authRequest) async {
     try {
       // Отправляем запрос
-      var response = await _unAuthClient.post('/login', data: authRequest.toJson());
+      var response =
+          await _unAuthClient.post('/login', data: authRequest.toJson());
 
       // Проверяем статус ответа
       if (response.statusCode == 200) {
@@ -26,7 +30,8 @@ class ApiService {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('accessToken', tokenPair.accessToken);
         await prefs.setString('refreshToken', tokenPair.refreshToken);
-        await prefs.setBool('authorized', true); //на всякий вдруг потом пригодиться
+        await prefs.setBool(
+            'authorized', true); //на всякий вдруг потом пригодиться
 
         return true;
         //TODO оторбражать на экране ошибку авторизации, когда нибудь
@@ -40,21 +45,25 @@ class ApiService {
     }
   }
 
+// POST-запрос для регистрации пользователя
   Future<bool> registerUser(RegisterRequest registerRequest) async {
     print("Попытка регистрации");
     try {
-      var response = await _unAuthClient.post('/register', data: registerRequest.toJson());
+      var response =
+          await _unAuthClient.post('/register', data: registerRequest.toJson());
 
       if (response.statusCode == 200) {
         print("Регистрация прошла успешно");
         return true;
       } else {
-        print("Ошибка регистрации: ${response.statusCode}, ${response.data['message']}");
+        print(
+            "Ошибка регистрации: ${response.statusCode}, ${response.data['message']}");
       }
     } on DioException catch (e) {
       // Проверяем, произошла ли ошибка на уровне HTTP-запроса
       if (e.response != null) {
-        print("Ошибка HTTP-запроса: ${e.response?.statusCode}, ${e.response?.data['message']}");
+        print(
+            "Ошибка HTTP-запроса: ${e.response?.statusCode}, ${e.response?.data['message']}");
       } else {
         print("Ошибка при подключении: ${e.message}");
       }
@@ -66,10 +75,52 @@ class ApiService {
     return false;
   }
 
-  // GET-запрос для получения данных пользователя
-  Future<Response> fetchUserData() async {
+// POST-запрос для обновления данных пользователя
+  Future<bool> accountUpdate(AccountUpdateRequest AccountUpdateRequest) async {
+    print("Попытка обновления данных пользователя");
     try {
-      return await _client.dio.get('/user');
+      var response =
+      await _client.dio.put('/user/me', data: AccountUpdateRequest.toJson());
+
+      if (response.statusCode == 200) {
+        print("Обновление данных пользователя прошло успешно");
+        return true;
+      } else {
+        print(
+            "Ошибка обновления данных пользователя: ${response.statusCode}, ${response.data['message']}");
+      }
+    } on DioException catch (e) {
+      // Проверяем, произошла ли ошибка на уровне HTTP-запроса
+      if (e.response != null) {
+        print(
+            "Ошибка HTTP-запроса: ${e.response?.statusCode}, ${e.response?.data['message']}");
+      } else {
+        print("Ошибка при подключении: ${e.message}");
+      }
+    } catch (e) {
+      // Обработка любой другой ошибки
+      print("Ошибка регистрации: $e");
+    }
+
+    return false;
+  }
+
+// GET-запрос для получения данных своего пользователя
+  Future<UserModel> fetchMeUserData() async {
+    try {
+      var response = await _client.dio.get('/user/me');
+      UserModel user = UserModel.fromJson(response.data);
+      return user;
+    } catch (e) {
+      print("Ошибка при получении данных пользователя: $e");
+      rethrow;
+    }
+  }
+
+  // GET-запрос для получения данных пользователя
+  Future<Response> fetchUserData(int userId) async {
+    try {
+      return await _client.dio.get('/user/$userId');
     } catch (e) {
       print("Ошибка при получении данных пользователя: $e");
       rethrow;
@@ -87,7 +138,8 @@ class ApiService {
   }
 
   // PUT-запрос для обновления данных пользователя
-  Future<Response> updateUser(String userId, Map<String, dynamic> userData) async {
+  Future<Response> updateUser(
+      String userId, Map<String, dynamic> userData) async {
     try {
       return await _client.dio.put('/user/$userId', data: userData);
     } catch (e) {

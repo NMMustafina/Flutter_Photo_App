@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:photo_app/screens/auth_screen.dart';
+import 'package:photo_app/screens/login_screen.dart';
+import 'package:photo_app/screens/register_screen.dart';
 import 'package:photo_app/services/images_info.dart';
 import 'package:photo_app/widgets/primary_outlined_button.dart';
 import 'package:photo_app/widgets/user_info.dart';
@@ -108,7 +109,7 @@ class BaseScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AuthScreen(isLogin: true),
+                          builder: (context) => const LoginScreen(),
                         ),
                       );
                     },
@@ -123,7 +124,7 @@ class BaseScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              const AuthScreen(isLogin: false),
+                              const RegisterScreen(),
                         ),
                       );
                     },

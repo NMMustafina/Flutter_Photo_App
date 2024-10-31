@@ -33,7 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     firstNameController.dispose();
     lastNameController.dispose();
     locationController.dispose();
-    firstNameController.dispose();
+    avatarController.dispose();
     super.dispose();
   }
 
@@ -58,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       bool result = await apiService.registerUser(registerRequest);
 
       if (result) {
-        Navigator.pushNamed(context, '/discover');
+        Navigator.pushNamed(context, '/login');
       } else {
         MainSnackBar.showSnackBar(
           context,
@@ -67,6 +67,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
         print("Результат регистрации: $result");
       }
+
+      emailController.clear();
+      passwordController.clear();
+      firstNameController.clear();
+      lastNameController.clear();
+      locationController.clear();
+      avatarController.clear();
     }
 
     return Scaffold(
@@ -103,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     textHint: 'Email',
                     textController: emailController,
                     validator: (email) =>
-                        email.isEmpty && !EmailValidator.validate(email)
+                        email!.isEmpty && !EmailValidator.validate(email)
                             ? 'Enter the correct Email address'
                             : null,
                   ),
@@ -111,14 +118,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     textHint: 'Password',
                     toggleObscure: true,
                     textController: passwordController,
-                    validator: (pass) => pass.isEmpty && pass.length < 8
+                    validator: (pass) => pass!.isEmpty || pass.length < 8
                         ? 'Password must be at least 8 characters'
                         : null,
                   ),
                   FormFieldText(
                     textHint: 'First Name',
                     textController: firstNameController,
-                    validator: (firstName) => firstName.isEmpty
+                    validator: (firstName) => firstName!.isEmpty
                         ? 'Please, enter the First Name'
                         : null,
                   ),
@@ -131,7 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     textController: locationController,
                   ),
                   FormFieldText(
-                    textHint: 'Avatar',
+                    textHint: 'Avatar URL',
                     textController: avatarController,
                   ),
                   PrimaryElevatedButton(

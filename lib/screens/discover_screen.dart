@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_app/services/images_info.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
+import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/image_card.dart';
 import 'package:photo_app/widgets/images_grid.dart';
 import 'package:photo_app/widgets/mail_title.dart';
@@ -24,6 +26,30 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       key: scaffoldKey,
+      endDrawer: const EndDrawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/icons/arrow.svg',
+            width: 16,
+            height: 16,
+            fit: BoxFit.cover,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              scaffoldKey.currentState!.openEndDrawer();
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         top: true,
         child: SingleChildScrollView(
@@ -31,7 +57,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 32, 16, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(16, 10, 16, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -81,7 +81,7 @@ class EndDrawer extends StatelessWidget {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/profile');
+                      Navigator.pushNamed(context, '/account');
                     },
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -90,7 +90,7 @@ class EndDrawer extends StatelessWidget {
                       foregroundColor: Colors.black,
                     ),
                     child: Text(
-                      'Profile',
+                      'Account',
                       style: TextStyle(
                         fontFamily: 'Comfortaa',
                         fontSize: 24,
