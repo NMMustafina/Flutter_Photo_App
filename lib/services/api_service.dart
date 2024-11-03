@@ -118,9 +118,11 @@ class ApiService {
   }
 
   // GET-запрос для получения данных пользователя
-  Future<Response> fetchUserData(int userId) async {
+  Future<UserModel> fetchUserData(int userId) async {
     try {
-      return await _client.dio.get('/user/$userId');
+      var response = await _client.dio.get('/user/$userId');
+      UserModel user = UserModel.fromJson(response.data);
+      return user;
     } catch (e) {
       print("Ошибка при получении данных пользователя: $e");
       rethrow;

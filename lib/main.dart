@@ -43,7 +43,7 @@ class PhotoApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/discover': (context) => const DiscoverScreen(),
         '/account': (context) => const AccountScreen(),
-        '/profile': (context) => const ProfileScreen(userId: 'uRMRfzkrvy0euitnOnvM'),
+        '/profile': (context) => const ProfileScreen(userId: 19),
         '/search': (context) => const SearchResultsScreen(),
         '/chats': (context) => const ChatsScreen(),
       },

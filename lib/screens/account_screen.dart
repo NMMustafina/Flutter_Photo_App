@@ -17,8 +17,15 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey<FormState>();
   bool isLoading = true;
   var userData;
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController avatarController = TextEditingController();
 
   @override
   void initState() {
@@ -32,6 +39,10 @@ class _AccountScreenState extends State<AccountScreen> {
       var result = await apiService.fetchMeUserData();
       setState(() {
         userData = result;
+        firstNameController.text = userData.firstName;
+        lastNameController.text = userData.lastName;
+        locationController.text = userData.location;
+        avatarController.text = userData.avatar;
         isLoading = false;
       });
     } catch (e) {
@@ -41,14 +52,6 @@ class _AccountScreenState extends State<AccountScreen> {
       });
     }
   }
-
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
-  final TextEditingController avatarController = TextEditingController();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -124,7 +127,7 @@ class _AccountScreenState extends State<AccountScreen> {
         ],
       ),
       body: isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation(Colors.black)))
           : SafeArea(
@@ -138,7 +141,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       children: [
                         const MainHeading(textHeading: 'Account'),
                         FormFieldText(
-                          textHint: 'userData.username',
+                          textHint: userData.username,
                           enabled: false,
                         ),
                         FormFieldText(
@@ -146,7 +149,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           enabled: false,
                         ),
                         FormFieldText(
-                          textHint: 'userData.password',
+                          textHint: 'Enter new password',
                           toggleObscure: true,
                           textController: passwordController,
                           validator: (pass) => pass!.isEmpty || pass.length < 8
@@ -154,22 +157,22 @@ class _AccountScreenState extends State<AccountScreen> {
                               : null,
                         ),
                         FormFieldText(
-                          textHint: userData.firstName,
+                          textHint: 'First Name',
                           textController: firstNameController,
                           validator: (firstName) => firstName!.isEmpty
                               ? 'Please, enter the First Name'
                               : null,
                         ),
                         FormFieldText(
-                          textHint: userData.lastName,
+                          textHint: 'Last Name',
                           textController: lastNameController,
                         ),
                         FormFieldText(
-                          textHint: userData.location,
+                          textHint: 'Location',
                           textController: locationController,
                         ),
                         FormFieldText(
-                          textHint: userData.avatar,
+                          textHint: 'Avatar URL',
                           textController: avatarController,
                         ),
                         PrimaryElevatedButton(
