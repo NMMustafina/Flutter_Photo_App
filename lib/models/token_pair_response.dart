@@ -1,14 +1,25 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class TokenPairResponse {
+  final String accessToken;
+  final String refreshToken;
 
-part 'token_pair_response.freezed.dart';
-part 'token_pair_response.g.dart';
+  TokenPairResponse({
+    required this.accessToken,
+    required this.refreshToken,
+  });
 
-@freezed
-class TokenPairResponse with _$TokenPairResponse {
-  const factory TokenPairResponse({
-    required String accessToken,
-    required String refreshToken,
-  }) = _TokenPairResponse;
+  // Фабричный конструктор для создания модели из JSON
+  factory TokenPairResponse.fromJson(Map<String, dynamic> json) {
+    return TokenPairResponse(
+      accessToken: json['accessToken'] as String,
+      refreshToken: json['refreshToken'] as String,
+    );
+  }
 
-  factory TokenPairResponse.fromJson(Map<String, dynamic> json) => _$TokenPairResponseFromJson(json);
+  // Метод для преобразования модели в JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'accessToken': accessToken,
+      'refreshToken': refreshToken,
+    };
+  }
 }

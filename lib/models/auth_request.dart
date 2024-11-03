@@ -1,14 +1,25 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class AuthRequest {
+  final String username;
+  final String password;
 
-part 'auth_request.freezed.dart';
-part 'auth_request.g.dart';
+  AuthRequest({
+    required this.username,
+    required this.password,
+  });
 
-@freezed
-class AuthRequest with _$AuthRequest {
-  const factory AuthRequest({
-    required String username,
-    required String password,
-  }) = _AuthRequest;
+  // Фабричный конструктор для создания модели из JSON
+  factory AuthRequest.fromJson(Map<String, dynamic> json) {
+    return AuthRequest(
+      username: json['username'] as String,
+      password: json['password'] as String,
+    );
+  }
 
-  factory AuthRequest.fromJson(Map<String, dynamic> json) => _$AuthRequestFromJson(json);
+  // Метод для преобразования модели в JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'username': username,
+      'password': password,
+    };
+  }
 }
