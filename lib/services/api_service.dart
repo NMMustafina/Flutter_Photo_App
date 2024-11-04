@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:dio/dio.dart';
 import 'package:photo_app/models/account_update_request.dart';
 import 'package:photo_app/models/auth_request.dart';
+import 'package:photo_app/models/create_image_request.dart';
 import 'package:photo_app/models/register_request.dart';
 import 'package:photo_app/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +15,7 @@ class ApiService {
   final ApiClient _client = ApiClient();
   final Dio _unAuthClient = Dio(BaseOptions(baseUrl: Config.baseUrl));
 
-// POST-запрос для авторизации пользователя
+  // POST-запрос для авторизации пользователя
   Future<bool> loginUser(AuthRequest authRequest) async {
     try {
       // Отправляем запрос
@@ -45,7 +46,7 @@ class ApiService {
     }
   }
 
-// POST-запрос для регистрации пользователя
+  // POST-запрос для регистрации пользователя
   Future<bool> registerUser(RegisterRequest registerRequest) async {
     print("Попытка регистрации");
     try {
@@ -75,12 +76,12 @@ class ApiService {
     return false;
   }
 
-// POST-запрос для обновления данных пользователя
-  Future<bool> accountUpdate(AccountUpdateRequest AccountUpdateRequest) async {
+  // POST-запрос для обновления данных пользователя
+  Future<bool> accountUpdate(AccountUpdateRequest accountUpdateRequest) async {
     print("Попытка обновления данных пользователя");
     try {
-      var response =
-      await _client.dio.put('/user/me', data: AccountUpdateRequest.toJson());
+      var response = await _client.dio
+          .put('/user/me', data: accountUpdateRequest.toJson());
 
       if (response.statusCode == 200) {
         print("Обновление данных пользователя прошло успешно");
@@ -105,8 +106,8 @@ class ApiService {
     return false;
   }
 
-// GET-запрос для получения данных своего пользователя
-  Future<UserModel> fetchMeUserData() async {
+  // GET-запрос для получения данных своего пользователя
+  Future<UserModel> fetchCurrentUserData() async {
     try {
       var response = await _client.dio.get('/user/me');
       UserModel user = UserModel.fromJson(response.data);
@@ -129,34 +130,55 @@ class ApiService {
     }
   }
 
-  // POST-запрос для создания нового пользователя
-  Future<Response> createUser(Map<String, dynamic> userData) async {
+  // POST-запрос для создания нового изображения
+  Future<bool> createImage(CreateImageRequest createImageRequest) async {
+    print("Попытка регистрации");
     try {
-      return await _client.dio.post('/user', data: userData);
+      var response =
+      await _unAuthClient.post('/images/create', data: createImageRequest.toJson());
+
+      if (response.statusCode == 200) {
+        print("Регистрация прошла успешно");
+        return true;
+      } else {
+        print(
+            "Ошибка регистрации: ${response.statusCode}, ${response.data['message']}");
+      }
+    } on DioException catch (e) {
+      // Проверяем, произошла ли ошибка на уровне HTTP-запроса
+      if (e.response != null) {
+        print(
+            "Ошибка HTTP-запроса: ${e.response?.statusCode}, ${e.response?.data['message']}");
+      } else {
+        print("Ошибка при подключении: ${e.message}");
+      }
     } catch (e) {
-      print("Ошибка при создании пользователя: $e");
-      rethrow;
+      // Обработка любой другой ошибки
+      print("Ошибка регистрации: $e");
     }
+
+    return false;
   }
 
+////////////////////////////////////////////////////////
   // PUT-запрос для обновления данных пользователя
-  Future<Response> updateUser(
-      String userId, Map<String, dynamic> userData) async {
-    try {
-      return await _client.dio.put('/user/$userId', data: userData);
-    } catch (e) {
-      print("Ошибка при обновлении пользователя: $e");
-      rethrow;
-    }
-  }
-
-  // DELETE-запрос для удаления пользователя
-  Future<Response> deleteUser(String userId) async {
-    try {
-      return await _client.dio.delete('/user/$userId');
-    } catch (e) {
-      print("Ошибка при удалении пользователя: $e");
-      rethrow;
-    }
-  }
+  // Future<Response> updateUser(
+  //     String userId, Map<String, dynamic> userData) async {
+  //   try {
+  //     return await _client.dio.put('/user/$userId', data: userData);
+  //   } catch (e) {
+  //     print("Ошибка при обновлении пользователя: $e");
+  //     rethrow;
+  //   }
+  // }
+  //
+  // // DELETE-запрос для удаления пользователя
+  // Future<Response> deleteUser(String userId) async {
+  //   try {
+  //     return await _client.dio.delete('/user/$userId');
+  //   } catch (e) {
+  //     print("Ошибка при удалении пользователя: $e");
+  //     rethrow;
+  //   }
+  // }
 }

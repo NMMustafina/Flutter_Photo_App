@@ -118,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     textHint: 'Password',
                     toggleObscure: true,
                     textController: passwordController,
-                    validator: (pass) => pass!.isEmpty || pass.length < 8
+                    validator: (pass) => pass!.isEmpty || pass.length < 3
                         ? 'Password must be at least 8 characters'
                         : null,
                   ),

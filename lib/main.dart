@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:photo_app/models/user_provider.dart';
+import 'package:photo_app/services/service_locator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:photo_app/firebase_options.dart';
 import 'package:photo_app/screens/account_screen.dart';
@@ -9,7 +12,7 @@ import 'package:photo_app/screens/login_screen.dart';
 import 'package:photo_app/screens/profile_screen.dart';
 import 'package:photo_app/screens/search_results_screen.dart';
 import 'package:photo_app/screens/test.dart';
-import 'services/service_locator.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +22,17 @@ void main() async {
 
   ServiceLocator.setup();
 
-  runApp(const PhotoApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserProvider>(
+          create: (_) => UserProvider(),
+        ),
+        // Можно добавить и другие провайдеры при необходимости
+      ],
+      child: const PhotoApp(),
+    ),
+  );
 }
 
 class PhotoApp extends StatelessWidget {
@@ -38,7 +51,7 @@ class PhotoApp extends StatelessWidget {
       home: const BaseScreen(),
       initialRoute: '/',
       routes: {
-        '/test': (context) => const MyApp(),
+      //  '/test': (context) => const MyApp(),
         '/home': (context) => const BaseScreen(),
         '/login': (context) => const LoginScreen(),
         '/discover': (context) => const DiscoverScreen(),
