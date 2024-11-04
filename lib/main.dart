@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/screens/create_image_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:photo_app/models/user_provider.dart';
 import 'package:photo_app/services/service_locator.dart';
@@ -56,6 +57,7 @@ class PhotoApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/discover': (context) => const DiscoverScreen(),
         '/account': (context) => const AccountScreen(),
+        '/create_image': (context) => const CreateImageScreen(),
         '/profile': (context) => const ProfileScreen(userId: 19),
         '/search': (context) => const SearchResultsScreen(),
         '/chats': (context) => const ChatsScreen(),

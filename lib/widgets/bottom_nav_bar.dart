@@ -20,7 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       //   [
       //     '/home',
       //     '/search',
-      //     '/publication',
+      //     '/create_image',
       //     '/chats',
       //     '/profile'
       //   ][index],
@@ -33,7 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           Navigator.pushNamed(context, '/search');
           break;
         case 2:
-          Navigator.pushNamed(context, '/publication');
+          Navigator.pushNamed(context, '/create_image');
           break;
         case 3:
           Navigator.pushNamed(context, '/chats');

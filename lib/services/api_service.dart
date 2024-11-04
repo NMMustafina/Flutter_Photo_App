@@ -132,17 +132,17 @@ class ApiService {
 
   // POST-запрос для создания нового изображения
   Future<bool> createImage(CreateImageRequest createImageRequest) async {
-    print("Попытка регистрации");
+    print("Попытка создания нового изображения");
     try {
       var response =
-      await _unAuthClient.post('/images/create', data: createImageRequest.toJson());
+      await _client.dio.post('/images/create', data: createImageRequest.toJson());
 
       if (response.statusCode == 200) {
-        print("Регистрация прошла успешно");
+        print("Создание нового изображения прошло успешно");
         return true;
       } else {
         print(
-            "Ошибка регистрации: ${response.statusCode}, ${response.data['message']}");
+            "Ошибка создания нового изображения: ${response.statusCode}, ${response.data['message']}");
       }
     } on DioException catch (e) {
       // Проверяем, произошла ли ошибка на уровне HTTP-запроса
@@ -154,7 +154,7 @@ class ApiService {
       }
     } catch (e) {
       // Обработка любой другой ошибки
-      print("Ошибка регистрации: $e");
+      print("Ошибка создания нового изображения: $e");
     }
 
     return false;
