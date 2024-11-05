@@ -4,13 +4,13 @@ import 'package:photo_app/screens/individual_chats_screen.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/chats_item.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
-import 'package:photo_app/widgets/mail_title.dart';
+import 'package:photo_app/widgets/main_title.dart';
 
 class ChatsScreen extends StatefulWidget {
-  const ChatsScreen({Key? key}) : super(key: key);
+  const ChatsScreen({super.key});
 
   @override
-  _ChatsScreenState createState() => _ChatsScreenState();
+  State<ChatsScreen> createState() => _ChatsScreenState();
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
@@ -21,15 +21,16 @@ class _ChatsScreenState extends State<ChatsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       key: scaffoldKey,
-      endDrawer: EndDrawer(),
+      endDrawer: const EndDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading:
-        IconButton(
-          icon: SvgPicture.asset('assets/images/icons/arrow.svg',
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/icons/arrow.svg',
             width: 16,
             height: 16,
-            fit: BoxFit.cover,),
+            fit: BoxFit.cover,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -37,14 +38,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () {
               scaffoldKey.currentState!.openEndDrawer();
             },
           ),
         ],
       ),
-      body: SafeArea(
+      body: const SafeArea(
         top: true,
         child: SingleChildScrollView(
           child: Padding(
@@ -58,31 +59,33 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   color: Color(0x4C000000),
                 ),
                 ChatsItem(
-                    pathAvatar: 'assets/images/avatar/avatar_08.png',
+                    avatar: 'assets/images/avatar/avatar_08.png',
                     textUsername: 'James',
                     textMessage: 'Thank you! That was very helpful!',
-                    Url: IndividualChatsScreen()),
+                    textUrl: IndividualChatsScreen()),
                 ChatsItem(
-                    pathAvatar: 'assets/images/avatar/avatar_09.png',
+                    avatar: 'assets/images/avatar/avatar_09.png',
                     textUsername: 'Will Kenny',
                     textMessage: 'I know... I’m trying to get the funds.',
-                    Url: IndividualChatsScreen()),
+                    textUrl: IndividualChatsScreen()),
                 ChatsItem(
-                    pathAvatar: 'assets/images/avatar/avatar_10.png',
+                    avatar: 'assets/images/avatar/avatar_10.png',
                     textUsername: 'Beth Williams',
-                    textMessage: 'I’m looking for tips around capturing the milky way. I have a 6D with a 24-100mm...',
-                    Url: IndividualChatsScreen()),
+                    textMessage:
+                        'I’m looking for tips around capturing the milky way. I have a 6D with a 24-100mm...',
+                    textUrl: IndividualChatsScreen()),
                 ChatsItem(
-                    pathAvatar: 'assets/images/avatar/avatar_11.png',
+                    avatar: 'assets/images/avatar/avatar_11.png',
                     textUsername: 'Rev Shawn',
-                    textMessage: 'Wanted to ask if you’re available for a portrait shoot next week.',
-                    Url: IndividualChatsScreen()),
+                    textMessage:
+                        'Wanted to ask if you’re available for a portrait shoot next week.',
+                    textUrl: IndividualChatsScreen()),
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: const BottomNavBar(
         selectedIndex: 3,
       ),
     );

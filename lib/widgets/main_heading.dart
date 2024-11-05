@@ -5,8 +5,7 @@ class MainHeading extends StatelessWidget {
   final double paddingBottom;
 
   const MainHeading(
-      {Key? key, required this.textHeading, this.paddingBottom = 30})
-      : super(key: key);
+      {super.key, required this.textHeading, this.paddingBottom = 30});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class MainHeading extends StatelessWidget {
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: Text(
         textHeading,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Comfortaa',
           fontSize: 36,
         ),

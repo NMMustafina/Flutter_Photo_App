@@ -4,27 +4,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 class BottomNavBar extends StatefulWidget {
   final int selectedIndex;
 
-  BottomNavBar({
+  const BottomNavBar({
+    super.key,
     required this.selectedIndex,
   });
 
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
   void _onItemTapped(int index) {
     setState(() {
-      // Navigator.pushNamed(
-      //   context,
-      //   [
-      //     '/home',
-      //     '/search',
-      //     '/create_image',
-      //     '/chats',
-      //     '/profile'
-      //   ][index],
-      // );
       switch (index) {
         case 0:
           Navigator.pushNamed(context, '/home');
@@ -67,7 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           label: '',
         ),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
           icon: CustomStackIcon(),
           label: '',
         ),
@@ -93,6 +84,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 }
 
 class CustomStackIcon extends StatelessWidget {
+  const CustomStackIcon({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -103,7 +96,7 @@ class CustomStackIcon extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               colors: [
                 Color(0xFFFF00D6),
                 Color(0xFFFF4D00),
@@ -113,7 +106,7 @@ class CustomStackIcon extends StatelessWidget {
             ),
           ),
         ),
-        Icon(
+        const Icon(
           Icons.add,
           size: 20,
           color: Colors.white,

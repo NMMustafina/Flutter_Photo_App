@@ -3,12 +3,14 @@ import 'package:photo_app/widgets/image_small.dart';
 import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class ImagesLoadMoreGrid extends StatefulWidget {
+  const ImagesLoadMoreGrid({super.key});
+
   @override
-  _ImagesLoadMoreGridState createState() => _ImagesLoadMoreGridState();
+  State<ImagesLoadMoreGrid> createState() => _ImagesLoadMoreGridState();
 }
 
 class _ImagesLoadMoreGridState extends State<ImagesLoadMoreGrid> {
-  List<String> _imageUrls = List.generate(
+  final List<String> _imageUrls = List.generate(
       5, (index) => 'assets/images/search_results/image_${index + 1}.png');
 
   void _loadMoreImages() {
@@ -27,27 +29,25 @@ class _ImagesLoadMoreGridState extends State<ImagesLoadMoreGrid> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 32),
-          child: Container(
-            child: GridView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              itemCount: _imageUrls.length,
-              itemBuilder: (context, index) {
-                return ImageSmall(
-                  imageUrl: '${_imageUrls[index]}',
-                  imageHeight: 220,
-                  pathAvatar: 'assets/images/avatar/avatar_06.png',
-                  textUsername: 'Angelo Pantazis',
-                  textLogin: '@angelopantazis',
-                );
-              },
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 32),
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
             ),
+            itemCount: _imageUrls.length,
+            itemBuilder: (context, index) {
+              return ImageSmall(
+                imageUrl: _imageUrls[index],
+                imageHeight: 220,
+                avatar: 'assets/images/avatar/avatar_06.png',
+                fullName: 'Angelo Pantazis',
+                accountName: '@angelopantazis',
+              );
+            },
           ),
         ),
         PrimaryOutlinedButton(

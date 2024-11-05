@@ -4,9 +4,8 @@ class MainTitle extends StatelessWidget {
   final String textTitle;
   final double paddingBottom;
 
-  const MainTitle({
-    Key? key, required this.textTitle, this.paddingBottom = 20})
-      : super(key: key);
+  const MainTitle(
+      {super.key, required this.textTitle, this.paddingBottom = 20});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class MainTitle extends StatelessWidget {
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: Text(
         textTitle.toUpperCase(),
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Roboto',
           fontSize: 13,
           fontWeight: FontWeight.w900,

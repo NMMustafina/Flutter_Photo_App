@@ -27,7 +27,8 @@ class BaseScreen extends StatelessWidget {
               builder: (context,
                   AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator(
+                  return const Center(
+                      child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation(Colors.black),
                   ));
                 }
@@ -86,9 +87,9 @@ class BaseScreen extends StatelessWidget {
                           ),
                         ),
                         UserInfo(
-                          pathAvatar: imageData['avatar'],
-                          textUsername: imageData['username'],
-                          textLogin: imageData['login'],
+                          avatar: imageData['avatar'],
+                          fullName: imageData['username'],
+                          accountName: imageData['login'],
                         ),
                       ],
                     ),
@@ -123,8 +124,7 @@ class BaseScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const RegisterScreen(),
+                          builder: (context) => const RegisterScreen(),
                         ),
                       );
                     },

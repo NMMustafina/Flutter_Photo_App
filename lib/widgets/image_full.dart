@@ -3,15 +3,16 @@ import 'package:photo_app/widgets/user_info.dart';
 
 class ImageFull extends StatelessWidget {
   final String imageUrl;
-  final String pathAvatar;
-  final String textUsername;
-  final String textLogin;
+  final String avatar;
+  final String fullName;
+  final String accountName;
 
-  ImageFull(
-      {required this.imageUrl,
-      required this.pathAvatar,
-      required this.textUsername,
-      required this.textLogin});
+  const ImageFull(
+      {super.key,
+      required this.imageUrl,
+      required this.avatar,
+      required this.fullName,
+      required this.accountName});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class ImageFull extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 300,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Colors.black, Color(0x00C4C4C4)],
                   stops: [0, 1],
@@ -43,16 +44,16 @@ class ImageFull extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 46, 25, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(16, 46, 25, 0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   UserInfo(
-                    pathAvatar: pathAvatar,
-                    textUsername: textUsername,
-                    textLogin: textLogin,
+                    avatar: avatar,
+                    fullName: fullName,
+                    accountName: accountName,
                     textColor: Colors.white,
                   ),
                   GestureDetector(

@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       bool result = await apiService.loginUser(authRequest);
 
-      if(result){
+      if (result) {
         UserModel currentUser = await apiService.fetchCurrentUserData();
         userProvider.setUser(currentUser);
 
@@ -97,9 +97,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     textHint: 'Email',
                     textController: emailController,
                     validator: (email) =>
-                    email!.isEmpty && !EmailValidator.validate(email)
-                        ? 'Enter the correct Email address'
-                        : null,
+                        email!.isEmpty && !EmailValidator.validate(email)
+                            ? 'Enter the correct Email address'
+                            : null,
                   ),
                   FormFieldText(
                     textHint: 'Password',

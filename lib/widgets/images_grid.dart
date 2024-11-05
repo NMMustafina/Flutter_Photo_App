@@ -17,48 +17,48 @@ class ImagesGrid extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 32),
-            child: FutureBuilder<List<Map<String, dynamic>>>(
-              future: getImagesWithUserInfo(userId, category),
-              builder: (context,
-                  AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation(Colors.black),
-                  ));
-                }
-
-                if (snapshot.hasError) {
-                  return Center(child: Text('Ошибка: ${snapshot.error}'));
-                }
-
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('Нет изображений'));
-                }
-
-                // Отображаем изображения в сетке MasonryGridView
-                return MasonryGridView.count(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap:
-                      true, // займет место только для элементов, а не всё доступное пространство
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    final imageData = snapshot.data![index];
-                    return ImageSmall(
-                      imageUrl: imageData['imageLink'],
-                      pathAvatar: imageData['avatar'],
-                      textUsername: imageData['username'],
-                      textLogin: imageData['login'],
-                    );
-                  },
-                );
-              },
-            ),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 32),
+            // child: FutureBuilder<List<Map<String, dynamic>>>(
+            //   future: getImagesWithUserInfo(userId, category),
+            //   builder: (context,
+            //       AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+            //     if (snapshot.connectionState == ConnectionState.waiting) {
+            //       return const Center(
+            //           child: CircularProgressIndicator(
+            //         valueColor: AlwaysStoppedAnimation(Colors.black),
+            //       ));
+            //     }
+            //
+            //     if (snapshot.hasError) {
+            //       return Center(child: Text('Ошибка: ${snapshot.error}'));
+            //     }
+            //
+            //     if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            //       return const Center(child: Text('Нет изображений'));
+            //     }
+            //
+            //     // Отображаем изображения в сетке MasonryGridView
+            //     return MasonryGridView.count(
+            //       physics: const NeverScrollableScrollPhysics(),
+            //       shrinkWrap:
+            //           true, // займет место только для элементов, а не всё доступное пространство
+            //       crossAxisCount: 2,
+            //       mainAxisSpacing: 10,
+            //       crossAxisSpacing: 10,
+            //       itemCount: snapshot.data!.length,
+            //       itemBuilder: (context, index) {
+            //         final imageData = snapshot.data![index];
+            //         return ImageSmall(
+            //           imageUrl: imageData['imageLink'],
+            //           avatar: imageData['avatar'],
+            //           fullName: imageData['username'],
+            //           accountName: imageData['login'],
+            //         );
+            //       },
+            //     );
+            //   },
+            // ),
           ),
           PrimaryOutlinedButton(
             textButton: 'See More',

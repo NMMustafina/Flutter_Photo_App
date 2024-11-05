@@ -6,14 +6,14 @@ import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/images_grid.dart';
 import 'package:photo_app/widgets/primary_elevated_button.dart';
-import 'package:photo_app/widgets/mail_title.dart';
+import 'package:photo_app/widgets/main_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class ProfileScreen extends StatefulWidget {
-  final int userId;
+  final String accountName;
 
-  const ProfileScreen({super.key, required this.userId});
+  const ProfileScreen({super.key, required this.accountName});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -27,13 +27,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    fetchUserData(widget.userId);
+    fetchUserDataByAccountName(widget.accountName);
   }
 
-  void fetchUserData(userId) async {
+  void fetchUserDataByAccountName(accountName) async {
     try {
       final apiService = GetIt.instance<ApiService>();
-      var result = await apiService.fetchUserData(userId);
+      var result = await apiService.fetchUserDataByAccountName(accountName);
       setState(() {
         userData = result;
         isLoading = false;
@@ -77,77 +77,78 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: isLoading
           ? const Center(
-          child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(Colors.black)))
+              child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.black)))
           : SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16, 32, 16, 0),
-            child: Column(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 30),
-                      width: 128,
-                      height: 128,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 32, 16, 0),
+                  child: Column(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 30),
+                            width: 128,
+                            height: 128,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: userData.avatar != null
+                                ? Image.network(
+                                    userData.avatar,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'assets/images/default-avatar.webp',
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
+                                  )
+                                : Image.asset(
+                                    'assets/images/default-avatar.webp',
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                          MainHeading(
+                            textHeading: userData.firstName +
+                                (userData.lastName != null
+                                    ? ' ' + userData.lastName
+                                    : ''),
+                            paddingBottom: 5,
+                          ),
+                          userData.location != null &&
+                                  userData.location.isNotEmpty
+                              ? MainTitle(
+                                  textTitle: userData.location,
+                                  paddingBottom: 30)
+                              : const SizedBox.shrink(),
+                          PrimaryElevatedButton(
+                            textButton: 'Follow ${userData.firstName}',
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/profile');
+                            },
+                          ),
+                          PrimaryOutlinedButton(
+                            textButton: 'Message',
+                            paddingBottom: 30,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/chats');
+                            },
+                          ),
+                        ],
                       ),
-                      child: userData.avatar != null
-                          ? Image.network(
-                        userData.avatar,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            'assets/images/default-avatar.webp',
-                            fit: BoxFit.cover,
-                          );
-                        },
-                      )
-                          : Image.asset(
-                        'assets/images/default-avatar.webp',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    MainHeading(
-                      textHeading: userData.firstName +
-                          (userData.lastName != null
-                              ? ' ' + userData.lastName
-                              : ''),
-                      paddingBottom: 5,
-                    ),
-                    userData.location != null && userData.location.isNotEmpty
-                        ? MainTitle(
-                        textTitle: userData.location, paddingBottom: 30)
-                        : SizedBox.shrink(),
-                    PrimaryElevatedButton(
-                      textButton: 'Follow ${userData.firstName}',
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                    ),
-                    PrimaryOutlinedButton(
-                      textButton: 'Message',
-                      paddingBottom: 30,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/chats');
-                      },
-                    ),
-                  ],
+                      //const ImagesGrid(userId: "widget.userId"),
+                    ],
+                  ),
                 ),
-               //const ImagesGrid(userId: "widget.userId"),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
       bottomNavigationBar: BottomNavBar(
         selectedIndex: 4,
       ),
     );
   }
 }
-

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class IndividualChatsSender extends StatelessWidget {
-  final String pathAvatar;
+  final String avatar;
   final String textMessage;
 
   const IndividualChatsSender({
-    Key? key,
-    required this.pathAvatar,
+    super.key,
+    required this.avatar,
     required this.textMessage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(16, 24, 16, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(16, 24, 16, 0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,19 +22,19 @@ class IndividualChatsSender extends StatelessWidget {
             width: 28,
             height: 28,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
             child: Image.asset(
-              pathAvatar,
+              avatar,
               fit: BoxFit.cover,
             ),
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0x07000000),
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(6),
@@ -44,10 +44,10 @@ class IndividualChatsSender extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: Text(
                     textMessage,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 13,
                     ),

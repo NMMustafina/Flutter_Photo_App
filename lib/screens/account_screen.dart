@@ -34,12 +34,16 @@ class _AccountScreenState extends State<AccountScreen> {
     super.initState();
 
     // Инициализируем контроллеры данными из UserProvider
-    final currentUser = Provider.of<UserProvider>(context, listen: false).currentUser;
+    final currentUser =
+        Provider.of<UserProvider>(context, listen: false).currentUser;
     if (currentUser != null) {
       firstNameController.text = currentUser.firstName;
-      lastNameController.text = currentUser.lastName!;
-      locationController.text = currentUser.location!;
-      avatarController.text = currentUser.avatar!;
+      lastNameController.text =
+          (currentUser.lastName?.isEmpty ?? true ? '' : currentUser.lastName)!;
+      locationController.text =
+          (currentUser.location?.isEmpty ?? true ? '' : currentUser.location)!;
+      avatarController.text =
+          (currentUser.avatar?.isEmpty ?? true ? '' : currentUser.avatar)!;
     }
   }
 
@@ -74,10 +78,11 @@ class _AccountScreenState extends State<AccountScreen> {
 
       if (result) {
         // Обновляем данные пользователя в провайдере
-         UserModel user = await apiService.fetchCurrentUserData();
-         userProvider.setUser(user);
+        UserModel user = await apiService.fetchCurrentUserData();
+        userProvider.setUser(user);
 
-        MainSnackBar.showSnackBar(context, 'Profile updated successfully!', false);
+        MainSnackBar.showSnackBar(
+            context, 'Profile updated successfully!', false);
       } else {
         MainSnackBar.showSnackBar(
           context,
@@ -122,7 +127,7 @@ class _AccountScreenState extends State<AccountScreen> {
             padding: const EdgeInsetsDirectional.fromSTEB(16, 20, 16, 20),
             child: Consumer<UserProvider>(
               builder: (context, userProvider, child) {
-               final currentUser = userProvider.currentUser;
+                final currentUser = userProvider.currentUser;
                 return Form(
                   key: formKey,
                   child: Column(
@@ -141,7 +146,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         textHint: 'Enter new password',
                         toggleObscure: true,
                         textController: passwordController,
-                        validator: (pass) => pass!.isEmpty || pass.length < 8
+                        validator: (pass) => pass!.isEmpty || pass.length < 3
                             ? 'Password must be at least 8 characters'
                             : null,
                       ),

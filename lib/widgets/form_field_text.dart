@@ -9,16 +9,16 @@ class FormFieldText extends StatefulWidget {
   final bool enabled;
 
   const FormFieldText({
-    Key? key,
+    super.key,
     required this.textHint,
     this.toggleObscure = false,
     this.validator,
     this.textController,
     this.enabled = true,
-  }) : super(key: key);
+  });
 
   @override
-  _FormFieldTextState createState() => _FormFieldTextState();
+  State<FormFieldText> createState() => _FormFieldTextState();
 }
 
 class _FormFieldTextState extends State<FormFieldText> {
@@ -27,7 +27,8 @@ class _FormFieldTextState extends State<FormFieldText> {
   @override
   void initState() {
     super.initState();
-    _isObscured = widget.toggleObscure; // начальная установка в зависимости от параметра
+    _isObscured =
+        widget.toggleObscure; // начальная установка в зависимости от параметра
   }
 
   @override
@@ -86,16 +87,17 @@ class _FormFieldTextState extends State<FormFieldText> {
           // Добавляем иконку глаза
           suffixIcon: widget.toggleObscure
               ? IconButton(
-            icon: Icon(
-              _isObscured ? Icons.visibility_off : Icons.visibility,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              setState(() {
-                _isObscured = !_isObscured; // Переключаем видимость текста
-              });
-            },
-          )
+                  icon: Icon(
+                    _isObscured ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isObscured =
+                          !_isObscured; // Переключаем видимость текста
+                    });
+                  },
+                )
               : null,
         ),
         style: const TextStyle(

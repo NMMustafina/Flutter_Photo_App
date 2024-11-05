@@ -105,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MainHeading(textHeading: 'Register'),
+                  const MainHeading(textHeading: 'Register'),
                   FormFieldText(
                     textHint: 'Email',
                     textController: emailController,
@@ -139,7 +139,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   FormFieldText(
                     textHint: 'Avatar URL',
-                    textController: avatarController,
+                    textController: avatarController
+                      ..text = avatarController.text.isEmpty
+                          ? 'assets/images/default-avatar.webp'
+                          : avatarController.text,
                   ),
                   PrimaryElevatedButton(
                     textButton: 'Register',

@@ -10,10 +10,8 @@ import 'package:photo_app/screens/base_screen.dart';
 import 'package:photo_app/screens/chats_screen.dart';
 import 'package:photo_app/screens/discover_screen.dart';
 import 'package:photo_app/screens/login_screen.dart';
-import 'package:photo_app/screens/profile_screen.dart';
 import 'package:photo_app/screens/search_results_screen.dart';
 import 'package:photo_app/screens/test.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,13 +50,12 @@ class PhotoApp extends StatelessWidget {
       home: const BaseScreen(),
       initialRoute: '/',
       routes: {
-      //  '/test': (context) => const MyApp(),
+        //  '/test': (context) => const MyApp(),
         '/home': (context) => const BaseScreen(),
         '/login': (context) => const LoginScreen(),
         '/discover': (context) => const DiscoverScreen(),
         '/account': (context) => const AccountScreen(),
         '/create_image': (context) => const CreateImageScreen(),
-        '/profile': (context) => const ProfileScreen(userId: 19),
         '/search': (context) => const SearchResultsScreen(),
         '/chats': (context) => const ChatsScreen(),
       },

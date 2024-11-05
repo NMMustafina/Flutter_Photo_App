@@ -3,17 +3,17 @@ import 'package:photo_app/widgets/image_small.dart';
 import 'package:photo_app/widgets/user_info.dart';
 
 class ImageCard extends StatelessWidget {
-  final String pathImageCard;
-  final String pathAvatar;
-  final String textUsername;
-  final String textLogin;
+  final String imageLink;
+  final String avatar;
+  final String fullName;
+  final String accountName;
 
   const ImageCard(
       {super.key,
-      required this.pathImageCard,
-      required this.pathAvatar,
-      required this.textUsername,
-      required this.textLogin});
+      required this.imageLink,
+      required this.avatar,
+      required this.fullName,
+      required this.accountName});
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +24,18 @@ class ImageCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 16),
           child: ImageSmall(
-            imageUrl: pathImageCard,
+            imageUrl: imageLink,
             imageWidth: MediaQuery.sizeOf(context).width - 32,
             imageHeight: 343,
-            pathAvatar: pathAvatar,
-            textUsername: textUsername,
-            textLogin: textLogin,
+            avatar: avatar,
+            fullName: fullName,
+            accountName: accountName,
           ),
         ),
         UserInfo(
-          pathAvatar: pathAvatar,
-          textUsername: textUsername,
-          textLogin: textLogin,
+          avatar: avatar,
+          fullName: fullName,
+          accountName: accountName,
         ),
       ],
     );

@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
 import 'package:dio/dio.dart';
 import 'package:photo_app/models/account_update_request.dart';
 import 'package:photo_app/models/auth_request.dart';
 import 'package:photo_app/models/create_image_request.dart';
+import 'package:photo_app/models/image_model.dart';
+import 'package:photo_app/models/page.dart';
 import 'package:photo_app/models/register_request.dart';
 import 'package:photo_app/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,12 +130,24 @@ class ApiService {
     }
   }
 
+  // GET-запрос для получения данных пользователя по accountName
+  Future<UserModel> fetchUserDataByAccountName(String accountName) async {
+    try {
+      var response = await _client.dio.get('/user/account/$accountName');
+      UserModel user = UserModel.fromJson(response.data);
+      return user;
+    } catch (e) {
+      print("Ошибка при получении данных пользователя: $e");
+      rethrow;
+    }
+  }
+
   // POST-запрос для создания нового изображения
   Future<bool> createImage(CreateImageRequest createImageRequest) async {
     print("Попытка создания нового изображения");
     try {
-      var response =
-      await _client.dio.post('/images/create', data: createImageRequest.toJson());
+      var response = await _client.dio
+          .post('/images/create', data: createImageRequest.toJson());
 
       if (response.statusCode == 200) {
         print("Создание нового изображения прошло успешно");
@@ -158,6 +170,51 @@ class ApiService {
     }
 
     return false;
+  }
+
+  // GET-запрос для получения всех изображений
+  Future<List<ImageModel>> fetchImagesData() async {
+    try {
+      var response = await _client.dio.get('/images');
+      Page<ImageModel> imagePage = Page.fromJson(
+        response.data,
+        (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+      );
+      return imagePage.content;
+    } catch (e) {
+      print("Ошибка при получении изображений: $e");
+      rethrow;
+    }
+  }
+
+  // GET-запрос для получения изображений пользователя
+  Future<List<ImageModel>> fetchImagesByUserId(int userId) async {
+    try {
+      var response = await _client.dio.get('/images/by-user-id/$userId');
+      Page<ImageModel> imagePage = Page.fromJson(
+        response.data,
+            (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+      );
+      return imagePage.content;
+    } catch (e) {
+      print("Ошибка при получении изображений: $e");
+      rethrow;
+    }
+  }
+
+  // GET-запрос для получения изображений по accountName
+  Future<List<ImageModel>> fetchImagesByAccountName(String accountName) async {
+    try {
+      var response = await _client.dio.get('/images/by-account/$accountName');
+      Page<ImageModel> imagePage = Page.fromJson(
+        response.data,
+            (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+      );
+      return imagePage.content;
+    } catch (e) {
+      print("Ошибка при получении изображений: $e");
+      rethrow;
+    }
   }
 
 ////////////////////////////////////////////////////////

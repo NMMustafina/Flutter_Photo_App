@@ -13,9 +13,9 @@ class EndDrawer extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Align(
-              alignment: AlignmentDirectional(-1, 0),
+              alignment: const AlignmentDirectional(-1, 0),
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.close,
                   color: Colors.black,
                   size: 24,
@@ -25,7 +25,7 @@ class EndDrawer extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Row(
               children: [
                 Expanded(
@@ -34,12 +34,12 @@ class EndDrawer extends StatelessWidget {
                       Navigator.pushNamed(context, '/home');
                     },
                     style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
                       foregroundColor: Colors.black,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Home Page',
                       style: TextStyle(
                         fontFamily: 'Comfortaa',
@@ -50,7 +50,7 @@ class EndDrawer extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
@@ -59,12 +59,12 @@ class EndDrawer extends StatelessWidget {
                       Navigator.pushNamed(context, '/discover');
                     },
                     style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
                       foregroundColor: Colors.black,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Discover',
                       style: TextStyle(
                         fontFamily: 'Comfortaa',
@@ -75,32 +75,7 @@ class EndDrawer extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/profile');
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      foregroundColor: Colors.black,
-                    ),
-                    child: Text(
-                      'Profile',
-                      style: TextStyle(
-                        fontFamily: 'Comfortaa',
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
@@ -109,12 +84,12 @@ class EndDrawer extends StatelessWidget {
                       Navigator.pushNamed(context, '/account');
                     },
                     style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
                       foregroundColor: Colors.black,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Account',
                       style: TextStyle(
                         fontFamily: 'Comfortaa',
@@ -125,7 +100,7 @@ class EndDrawer extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
@@ -134,12 +109,12 @@ class EndDrawer extends StatelessWidget {
                       Navigator.pushNamed(context, '/search');
                     },
                     style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
                       foregroundColor: Colors.black,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Search',
                       style: TextStyle(
                         fontFamily: 'Comfortaa',
@@ -150,7 +125,7 @@ class EndDrawer extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
@@ -159,12 +134,12 @@ class EndDrawer extends StatelessWidget {
                       Navigator.pushNamed(context, '/chats');
                     },
                     style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
                       foregroundColor: Colors.black,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Chats',
                       style: TextStyle(
                         fontFamily: 'Comfortaa',

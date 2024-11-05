@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
-import 'package:photo_app/widgets/mail_title.dart';
+import 'package:photo_app/widgets/main_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 import 'package:photo_app/widgets/form_field_text.dart';
 import 'package:photo_app/widgets/images_load_more_grid.dart';
 
 class SearchResultsScreen extends StatefulWidget {
-  const SearchResultsScreen({Key? key}) : super(key: key);
+  const SearchResultsScreen({super.key});
 
   @override
-  _SearchResultsState createState() => _SearchResultsState();
+  State<SearchResultsScreen> createState() => _SearchResultsScreenState();
 }
 
-class _SearchResultsState extends State<SearchResultsScreen> {
+class _SearchResultsScreenState extends State<SearchResultsScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -27,7 +27,7 @@ class _SearchResultsState extends State<SearchResultsScreen> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 32, 16, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -39,12 +39,12 @@ class _SearchResultsState extends State<SearchResultsScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MainTitle(textTitle: 'All Results'),
+                    const MainTitle(textTitle: 'All Results'),
                     ImagesLoadMoreGrid(),
                   ],
                 ),
@@ -53,7 +53,7 @@ class _SearchResultsState extends State<SearchResultsScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: const BottomNavBar(
         selectedIndex: 1,
       ),
     );

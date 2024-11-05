@@ -36,8 +36,9 @@ class _CreateImageScreenState extends State<CreateImageScreen> {
       final apiService = GetIt.instance<ApiService>();
 
       // Преобразование строки тегов в список
-      List<String> tags = tagsController.text.split(',').map((tag) => tag.trim()).toList();
-print(tags);
+      List<String> tags =
+          tagsController.text.split(',').map((tag) => tag.trim()).toList();
+
       CreateImageRequest createImageRequest = CreateImageRequest(
         imageLink: imageLinkController.text,
         tags: tags,
@@ -93,9 +94,9 @@ print(tags);
                   FormFieldText(
                     textHint: 'Image Link',
                     textController: imageLinkController,
-                    validator: (imageLink) =>
-                        imageLink!.isEmpty ? 'Enter the correct image link'
-                            : null,
+                    validator: (imageLink) => imageLink!.isEmpty
+                        ? 'Enter the correct image link'
+                        : null,
                   ),
                   FormFieldText(
                     textHint: 'Enter tags separated by commas',

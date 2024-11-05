@@ -1,50 +1,48 @@
 import 'package:flutter/material.dart';
 
 class ChatsItem extends StatelessWidget {
-  final String pathAvatar;
+  final String avatar;
   final String textUsername;
   final String textMessage;
-  final Url;
+  final textUrl;
 
   const ChatsItem(
-      {Key? key,
-      required this.pathAvatar,
+      {super.key,
+      required this.avatar,
       required this.textUsername,
       required this.textMessage,
-      required this.Url})
-      : super(key: key);
+      required this.textUrl});
 
   @override
   Widget build(BuildContext context) {
-    return
-      GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Url,
-            ),
-          );
-        },
-        child: Column(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => textUrl,
+          ),
+        );
+      },
+      child: Column(
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16, 18, 16, 18),
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 18, 16, 18),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                   child: Container(
                     width: 64,
                     height: 64,
                     clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
                     child: Image.asset(
-                      pathAvatar,
+                      avatar,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -55,10 +53,11 @@ class ChatsItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 6),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 6),
                         child: Text(
                           textUsername,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
@@ -68,7 +67,7 @@ class ChatsItem extends StatelessWidget {
                       Text(
                         textMessage,
                         softWrap: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 13,
                         ),
@@ -79,12 +78,12 @@ class ChatsItem extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             height: 1,
             color: Color(0x4C000000),
           ),
         ],
-            ),
-      );
+      ),
+    );
   }
 }
