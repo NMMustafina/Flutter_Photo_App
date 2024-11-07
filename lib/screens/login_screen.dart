@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
           alignment: const AlignmentDirectional(-1, 1),
           child: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, '/home');
             },
             child: SvgPicture.asset(
               'assets/images/icons/arrow.svg',

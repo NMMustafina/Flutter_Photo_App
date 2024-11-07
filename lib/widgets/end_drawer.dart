@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:photo_app/widgets/end_drawer_primary_button.dart';
 
 class EndDrawer extends StatelessWidget {
   const EndDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void logout(BuildContext context) async {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/login',
+        (route) => false,
+      );
+    }
+
     return Drawer(
       backgroundColor: Colors.white,
       elevation: 16,
@@ -15,140 +28,55 @@ class EndDrawer extends StatelessWidget {
             Align(
               alignment: const AlignmentDirectional(-1, 0),
               child: IconButton(
-                icon: const Icon(
-                  Icons.close,
-                  color: Colors.black,
-                  size: 24,
-                ),
+                icon: const Icon(Icons.close, color: Colors.black, size: 24),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
             ),
             const SizedBox(height: 30),
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/home');
-                    },
-                    style: TextButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      foregroundColor: Colors.black,
-                    ),
-                    child: const Text(
-                      'Home Page',
-                      style: TextStyle(
-                        fontFamily: 'Comfortaa',
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            const EndDrawerPrimaryButton(
+                title: 'Home Page', routeName: '/home'),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/discover');
-                    },
-                    style: TextButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      foregroundColor: Colors.black,
-                    ),
-                    child: const Text(
-                      'Discover',
-                      style: TextStyle(
-                        fontFamily: 'Comfortaa',
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            const EndDrawerPrimaryButton(
+                title: 'Discover', routeName: '/discover'),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/account');
-                    },
-                    style: TextButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      foregroundColor: Colors.black,
-                    ),
-                    child: const Text(
-                      'Account',
-                      style: TextStyle(
-                        fontFamily: 'Comfortaa',
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            const EndDrawerPrimaryButton(
+                title: 'Account', routeName: '/account'),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/search');
-                    },
-                    style: TextButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      foregroundColor: Colors.black,
-                    ),
-                    child: const Text(
-                      'Search',
-                      style: TextStyle(
-                        fontFamily: 'Comfortaa',
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            const EndDrawerPrimaryButton(title: 'Search', routeName: '/search'),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/chats');
-                    },
-                    style: TextButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      foregroundColor: Colors.black,
-                    ),
-                    child: const Text(
-                      'Chats',
-                      style: TextStyle(
-                        fontFamily: 'Comfortaa',
-                        fontSize: 24,
-                      ),
-                    ),
+            const EndDrawerPrimaryButton(title: 'Chats', routeName: '/chats'),
+            const SizedBox(height: 10),
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFFF00D6),
+                    Color(0xFFFF4D00),
+                  ],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              child: ElevatedButton(
+                onPressed: () => logout(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                ),
+                child: const Text(
+                  'Log out',
+                  style: TextStyle(
+                    fontFamily: 'Comfortaa',
+                    fontSize: 18,
+                    color: Colors.white,
                   ),
                 ),
-              ],
+              ),
             ),
           ],
         ),
