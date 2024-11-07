@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:photo_app/models/image_model.dart';
+import 'package:photo_app/models/user_model.dart';
 import 'package:photo_app/services/api_service.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
@@ -22,12 +24,14 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = true;
-  var userData;
+  late UserModel userData;
+  late List<ImageModel> imagesData = [];
 
   @override
   void initState() {
     super.initState();
     fetchUserDataByAccountName(widget.accountName);
+    fetchImagesByAccountName(widget.accountName);
   }
 
   void fetchUserDataByAccountName(accountName) async {
@@ -36,6 +40,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       var result = await apiService.fetchUserDataByAccountName(accountName);
       setState(() {
         userData = result;
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Ошибка: $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void fetchImagesByAccountName(accountName) async {
+    try {
+      final apiService = GetIt.instance<ApiService>();
+      var result = await apiService.fetchImagesByAccountName(accountName);
+      setState(() {
+        imagesData = result;
         isLoading = false;
       });
     } catch (e) {
@@ -96,9 +116,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: userData.avatar != null
+                            child: userData.avatar != null &&
+                                    userData.avatar!.isNotEmpty
                                 ? Image.network(
-                                    userData.avatar,
+                                    userData.avatar!,
                                     fit: BoxFit.cover,
                                     errorBuilder: (context, error, stackTrace) {
                                       return Image.asset(
@@ -113,17 +134,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                           ),
                           MainHeading(
-                            textHeading: userData.firstName +
-                                (userData.lastName != null
-                                    ? ' ' + userData.lastName
-                                    : ''),
+                            textHeading:
+                                userData.firstName + (userData.lastName ?? ''),
                             paddingBottom: 5,
                           ),
                           userData.location != null &&
-                                  userData.location.isNotEmpty
+                                  userData.location!.isNotEmpty
                               ? MainTitle(
-                                  textTitle: userData.location,
-                                  paddingBottom: 30)
+                                  textTitle: userData.location!,
+                                  paddingBottom: 30,
+                                )
                               : const SizedBox.shrink(),
                           PrimaryElevatedButton(
                             textButton: 'Follow ${userData.firstName}',
@@ -140,13 +160,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      //const ImagesGrid(userId: "widget.userId"),
+                      ImagesGrid(
+                        imagesData: imagesData,
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: const BottomNavBar(
         selectedIndex: 4,
       ),
     );

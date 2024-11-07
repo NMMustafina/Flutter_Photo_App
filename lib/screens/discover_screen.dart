@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:photo_app/models/image_model.dart';
 import 'package:photo_app/services/api_service.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
-import 'package:photo_app/widgets/image_card.dart';
 import 'package:photo_app/widgets/images_grid.dart';
-import 'package:photo_app/services/images_info.dart';
+import 'package:photo_app/widgets/images_list.dart';
 import 'package:photo_app/widgets/main_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 
@@ -20,20 +20,37 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = true;
-  var imagesData;
+  late List<ImageModel> imagesData = [];
+  late List<ImageModel> imagesDataAll = [];
+  final apiService = GetIt.instance<ApiService>();
 
   @override
   void initState() {
     super.initState();
-    fetchImagesData();
+    fetchImagesByTag('whats-new');
+    fetchImagesByTagAll('browse-all');
   }
 
-  void fetchImagesData() async {
+  void fetchImagesByTag(tag) async {
     try {
-      final apiService = GetIt.instance<ApiService>();
-      var result = await apiService.fetchImagesData();
+      var result = await apiService.fetchImagesByTag(tag);
       setState(() {
         imagesData = result;
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Ошибка: $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void fetchImagesByTagAll(tag) async {
+    try {
+      var result = await apiService.fetchImagesByTag(tag);
+      setState(() {
+        imagesDataAll = result;
         isLoading = false;
       });
     } catch (e) {
@@ -93,43 +110,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 37),
-                      child: Container(
-                        width: MediaQuery.sizeOf(context).width,
-                        height: 400,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: ListView.builder(
-                          padding: const EdgeInsets.only(left: 16),
-                          primary: false,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: imagesData.length,
-                          itemBuilder: (context, index) {
-                            return ImageCard(
-                              imageLink: imagesData[index].imageLink,
-                              avatar: imagesData[index].user.avatar,
-                              fullName: imagesData[index].user.firstName +
-                                  (imagesData[index].user.lastName != null
-                                      ? ' ' + imagesData[index].user.lastName
-                                      : ''),
-                              accountName: imagesData[index].user.accountName,
-                            );
-                          },
-                        ),
-                      ),
+                    ImagesList(
+                      imagesData: imagesData,
                     ),
-                    const Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          MainTitle(textTitle: 'Browse all'),
+                          const MainTitle(textTitle: 'Browse all'),
                           ImagesGrid(
-                            category: 'browse-all',
+                            imagesData: imagesDataAll,
                           ),
                         ],
                       ),
@@ -138,7 +131,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
               ),
             ),
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: const BottomNavBar(
         selectedIndex: 0,
       ),
     );

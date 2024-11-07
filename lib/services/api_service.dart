@@ -193,7 +193,22 @@ class ApiService {
       var response = await _client.dio.get('/images/by-user-id/$userId');
       Page<ImageModel> imagePage = Page.fromJson(
         response.data,
-            (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+        (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+      );
+      return imagePage.content;
+    } catch (e) {
+      print("Ошибка при получении изображений: $e");
+      rethrow;
+    }
+  }
+
+  // GET-запрос для получения изображений по tag
+  Future<List<ImageModel>> fetchImagesByTag(String tag) async {
+    try {
+      var response = await _client.dio.get('/images/by-tag/$tag');
+      Page<ImageModel> imagePage = Page.fromJson(
+        response.data,
+        (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
       return imagePage.content;
     } catch (e) {
@@ -208,11 +223,21 @@ class ApiService {
       var response = await _client.dio.get('/images/by-account/$accountName');
       Page<ImageModel> imagePage = Page.fromJson(
         response.data,
-            (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+        (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
       return imagePage.content;
     } catch (e) {
       print("Ошибка при получении изображений: $e");
+      rethrow;
+    }
+  }
+
+// DELETE-запрос для удаления изображения
+  Future<Response> deleteImage(int imageId) async {
+    try {
+      return await _client.dio.delete('/images/$imageId');
+    } catch (e) {
+      print("Ошибка при удалении изображения: $e");
       rethrow;
     }
   }
@@ -229,13 +254,4 @@ class ApiService {
   //   }
   // }
   //
-  // // DELETE-запрос для удаления пользователя
-  // Future<Response> deleteUser(String userId) async {
-  //   try {
-  //     return await _client.dio.delete('/user/$userId');
-  //   } catch (e) {
-  //     print("Ошибка при удалении пользователя: $e");
-  //     rethrow;
-  //   }
-  // }
 }
