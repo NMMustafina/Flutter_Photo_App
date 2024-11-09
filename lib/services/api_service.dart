@@ -3,7 +3,7 @@ import 'package:photo_app/models/account_update_request.dart';
 import 'package:photo_app/models/auth_request.dart';
 import 'package:photo_app/models/create_image_request.dart';
 import 'package:photo_app/models/image_model.dart';
-import 'package:photo_app/models/page.dart';
+import 'package:photo_app/models/page_data.dart';
 import 'package:photo_app/models/register_request.dart';
 import 'package:photo_app/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -173,14 +173,15 @@ class ApiService {
   }
 
   // GET-запрос для получения всех изображений
-  Future<List<ImageModel>> fetchImagesData() async {
+  Future<PageData<ImageModel>> fetchImagesData(
+      int page, int size, String sort, bool isAscending) async {
     try {
-      var response = await _client.dio.get('/images');
-      Page<ImageModel> imagePage = Page.fromJson(
+      String sortOrder = isAscending ? "ASC" : "DESC";
+      var response = await _client.dio.get('/images?size=$size&page=$page&sort=$sort,$sortOrder');
+      return PageData.fromJson(
         response.data,
         (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
-      return imagePage.content;
     } catch (e) {
       print("Ошибка при получении изображений: $e");
       rethrow;
@@ -202,7 +203,7 @@ class ApiService {
   Future<List<ImageModel>> fetchImagesByUserId(int userId) async {
     try {
       var response = await _client.dio.get('/images/by-user-id/$userId');
-      Page<ImageModel> imagePage = Page.fromJson(
+      PageData<ImageModel> imagePage = PageData.fromJson(
         response.data,
         (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
@@ -214,14 +215,15 @@ class ApiService {
   }
 
   // GET-запрос для получения изображений по tag
-  Future<List<ImageModel>> fetchImagesByTag(String tag) async {
+  Future<PageData<ImageModel>> fetchImagesByTag(
+      String tag, int page, int size) async {
     try {
-      var response = await _client.dio.get('/images/by-tag/$tag');
-      Page<ImageModel> imagePage = Page.fromJson(
+      var response =
+          await _client.dio.get('/images/by-tag/$tag?size=$size&page=$page');
+      return PageData.fromJson(
         response.data,
         (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
-      return imagePage.content;
     } catch (e) {
       print("Ошибка при получении изображений: $e");
       rethrow;
@@ -232,7 +234,7 @@ class ApiService {
   Future<List<ImageModel>> fetchImagesByAccountName(String accountName) async {
     try {
       var response = await _client.dio.get('/images/by-account/$accountName');
-      Page<ImageModel> imagePage = Page.fromJson(
+      PageData<ImageModel> imagePage = PageData.fromJson(
         response.data,
         (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
@@ -254,15 +256,15 @@ class ApiService {
   }
 
 ////////////////////////////////////////////////////////
-  // PUT-запрос для обновления данных пользователя
-  // Future<Response> updateUser(
-  //     String userId, Map<String, dynamic> userData) async {
-  //   try {
-  //     return await _client.dio.put('/user/$userId', data: userData);
-  //   } catch (e) {
-  //     print("Ошибка при обновлении пользователя: $e");
-  //     rethrow;
-  //   }
-  // }
-  //
+// PUT-запрос для обновления данных пользователя
+// Future<Response> updateUser(
+//     String userId, Map<String, dynamic> userData) async {
+//   try {
+//     return await _client.dio.put('/user/$userId', data: userData);
+//   } catch (e) {
+//     print("Ошибка при обновлении пользователя: $e");
+//     rethrow;
+//   }
+// }
+//
 }

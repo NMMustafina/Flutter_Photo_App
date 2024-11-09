@@ -9,6 +9,7 @@ import 'package:photo_app/widgets/images_masonry_grid.dart';
 import 'package:photo_app/widgets/images_list.dart';
 import 'package:photo_app/widgets/main_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
+import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
@@ -20,22 +21,29 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = true;
+
   late List<ImageModel> imagesData = [];
-  late List<ImageModel> imagesDataAll = [];
+  late int imageDataPage = 0;
+
+  late List<ImageModel> allImages = [];
+  late int allImagesPage = 0;
+  late bool allImagesLastPage = false;
   final apiService = GetIt.instance<ApiService>();
 
   @override
   void initState() {
     super.initState();
     fetchImagesByTag('whats-new');
-    fetchImagesByTagAll('browse-all');
+    fetchAllImages();
   }
 
   void fetchImagesByTag(tag) async {
     try {
-      var result = await apiService.fetchImagesByTag(tag);
+      int size = 4;
+      var result = await apiService.fetchImagesByTag(tag, imageDataPage, size);
       setState(() {
-        imagesData = result;
+        imagesData.addAll(result.content);
+        imageDataPage = result.number;
         isLoading = false;
       });
     } catch (e) {
@@ -46,11 +54,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     }
   }
 
-  void fetchImagesByTagAll(tag) async {
+  void fetchAllImages() async {
     try {
-      var result = await apiService.fetchImagesByTag(tag);
+      int size = 10;
+      var result = await apiService.fetchImagesData(
+          allImagesPage, size, "createdAt", false);
       setState(() {
-        imagesDataAll = result;
+        allImages.addAll(result.content);
+        allImagesPage = result.number;
+        allImagesLastPage = result.last;
         isLoading = false;
       });
     } catch (e) {
@@ -110,9 +122,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         ],
                       ),
                     ),
-                    ImagesList(
-                      imagesData: imagesData,
-                    ),
+                    ImagesList(imagesData: imagesData),
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
@@ -121,8 +131,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const MainTitle(textTitle: 'Browse all'),
-                          ImagesMasonryGrid(
-                            imagesData: imagesDataAll,
+                          ImagesMasonryGrid(imagesData: allImages),
+                          PrimaryOutlinedButton(
+                            textButton: 'See More',
+                            onPressed: allImagesLastPage
+                                ? null // Если условие истинно, кнопка отключается
+                                : () {
+                                    allImagesPage += 1;
+                                    fetchAllImages();
+                                  },
                           ),
                         ],
                       ),

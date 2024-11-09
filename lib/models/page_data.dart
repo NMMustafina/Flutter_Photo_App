@@ -1,4 +1,4 @@
-class Page<T> {
+class PageData<T> {
   final int totalPages;
   final int totalElements;
   final bool first;
@@ -9,7 +9,7 @@ class Page<T> {
   final int numberOfElements;
   final bool empty;
 
-  Page({
+  PageData({
     required this.totalPages,
     required this.totalElements,
     required this.first,
@@ -22,11 +22,11 @@ class Page<T> {
   });
 
   // Фабричный конструктор для десериализации с помощью функции fromJsonT
-  factory Page.fromJson(
+  factory PageData.fromJson(
     Map<String, dynamic> json,
     T Function(Object? json) fromJsonT,
   ) {
-    return Page(
+    return PageData(
       totalPages: json['totalPages'] as int,
       totalElements: json['totalElements'] as int,
       first: json['first'] as bool,
