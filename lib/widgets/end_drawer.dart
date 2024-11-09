@@ -13,7 +13,7 @@ class EndDrawer extends StatelessWidget {
 
       Navigator.pushNamedAndRemoveUntil(
         context,
-        '/login',
+        '/home',
         (route) => false,
       );
     }
@@ -35,19 +35,13 @@ class EndDrawer extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            const EndDrawerPrimaryButton(
-                title: 'Home Page', routeName: '/home'),
-            const SizedBox(height: 10),
-            const EndDrawerPrimaryButton(
-                title: 'Discover', routeName: '/discover'),
-            const SizedBox(height: 10),
-            const EndDrawerPrimaryButton(
-                title: 'Account', routeName: '/account'),
+            const EndDrawerPrimaryButton(title: 'Discover', routeName: '/discover'),
             const SizedBox(height: 10),
             const EndDrawerPrimaryButton(title: 'Search', routeName: '/search'),
             const SizedBox(height: 10),
             const EndDrawerPrimaryButton(title: 'Chats', routeName: '/chats'),
             const SizedBox(height: 10),
+            const EndDrawerPrimaryButton(title: 'Account', routeName: '/account'),
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(

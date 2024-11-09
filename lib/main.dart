@@ -3,21 +3,16 @@ import 'package:photo_app/screens/create_image_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:photo_app/models/user_provider.dart';
 import 'package:photo_app/services/service_locator.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:photo_app/firebase_options.dart';
 import 'package:photo_app/screens/account_screen.dart';
 import 'package:photo_app/screens/base_screen.dart';
 import 'package:photo_app/screens/chats_screen.dart';
 import 'package:photo_app/screens/discover_screen.dart';
 import 'package:photo_app/screens/login_screen.dart';
-import 'package:photo_app/screens/search_results_screen.dart';
+import 'package:photo_app/screens/search_screen.dart';
 import 'package:photo_app/screens/test.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   ServiceLocator.setup();
 
@@ -56,7 +51,7 @@ class PhotoApp extends StatelessWidget {
         '/discover': (context) => const DiscoverScreen(),
         '/account': (context) => const AccountScreen(),
         '/create_image': (context) => const CreateImageScreen(),
-        '/search': (context) => const SearchResultsScreen(),
+        '/search': (context) => const SearchScreen(),
         '/chats': (context) => const ChatsScreen(),
       },
     );

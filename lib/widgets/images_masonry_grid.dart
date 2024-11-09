@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:photo_app/models/image_model.dart';
 import 'package:photo_app/widgets/image_small.dart';
 import 'package:photo_app/widgets/primary_outlined_button.dart';
 
-class ImagesGrid extends StatelessWidget {
+class ImagesMasonryGrid extends StatelessWidget {
   final List<ImageModel> imagesData;
 
-  const ImagesGrid({super.key, required this.imagesData});
+  const ImagesMasonryGrid({super.key, required this.imagesData});
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +18,13 @@ class ImagesGrid extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 32),
-            child: GridView.builder(
+            child: MasonryGridView.count(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap:
                   true, // займет место только для элементов, а не всё доступное пространство
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
               itemCount: imagesData.length,
               itemBuilder: (context, index) {
                 return ImageSmall(

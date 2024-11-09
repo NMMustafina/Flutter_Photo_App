@@ -6,6 +6,7 @@ import 'package:photo_app/models/image_model.dart';
 import 'package:photo_app/models/user_model.dart';
 import 'package:photo_app/models/user_provider.dart';
 import 'package:photo_app/services/api_service.dart';
+import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/form_field_text.dart';
 import 'package:photo_app/widgets/main_heading.dart';
@@ -244,6 +245,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
             ),
+      bottomNavigationBar: const BottomNavBar(
+        selectedIndex: 4,
+      ),
     );
   }
 }

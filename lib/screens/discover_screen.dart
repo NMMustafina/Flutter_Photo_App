@@ -5,7 +5,7 @@ import 'package:photo_app/models/image_model.dart';
 import 'package:photo_app/services/api_service.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
-import 'package:photo_app/widgets/images_grid.dart';
+import 'package:photo_app/widgets/images_masonry_grid.dart';
 import 'package:photo_app/widgets/images_list.dart';
 import 'package:photo_app/widgets/main_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
@@ -121,7 +121,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const MainTitle(textTitle: 'Browse all'),
-                          ImagesGrid(
+                          ImagesMasonryGrid(
                             imagesData: imagesDataAll,
                           ),
                         ],

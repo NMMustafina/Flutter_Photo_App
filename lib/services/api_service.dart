@@ -187,6 +187,17 @@ class ApiService {
     }
   }
 
+  Future<ImageModel> fetchRandomImages() async {
+    try {
+      var response = await _unAuthClient.get('/random-image');
+      ImageModel image = ImageModel.fromJson(response.data);
+      return image;
+    } catch (e) {
+      print("Ошибка при получении изображений: $e");
+      rethrow;
+    }
+  }
+
   // GET-запрос для получения изображений пользователя
   Future<List<ImageModel>> fetchImagesByUserId(int userId) async {
     try {

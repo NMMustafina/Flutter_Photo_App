@@ -6,7 +6,7 @@ import 'package:photo_app/models/user_model.dart';
 import 'package:photo_app/services/api_service.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
-import 'package:photo_app/widgets/images_grid.dart';
+import 'package:photo_app/widgets/images_masonry_grid.dart';
 import 'package:photo_app/widgets/primary_elevated_button.dart';
 import 'package:photo_app/widgets/main_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
@@ -160,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      ImagesGrid(
+                      ImagesMasonryGrid(
                         imagesData: imagesData,
                       ),
                     ],

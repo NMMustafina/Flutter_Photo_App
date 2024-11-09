@@ -19,7 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     setState(() {
       switch (index) {
         case 0:
-          Navigator.pushNamed(context, '/home');
+          Navigator.pushNamed(context, '/discover');
           break;
         case 1:
           Navigator.pushNamed(context, '/search');
@@ -31,7 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           Navigator.pushNamed(context, '/chats');
           break;
         case 4:
-          Navigator.pushNamed(context, '/profile');
+          Navigator.pushNamed(context, '/account');
           break;
       }
     });

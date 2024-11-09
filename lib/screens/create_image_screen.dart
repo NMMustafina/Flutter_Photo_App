@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:photo_app/models/create_image_request.dart';
 import 'package:photo_app/services/api_service.dart';
+import 'package:photo_app/widgets/bottom_nav_bar.dart';
+import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/primary_elevated_button.dart';
 import 'package:photo_app/widgets/main_heading.dart';
 import 'package:photo_app/widgets/form_field_text.dart';
@@ -19,6 +21,7 @@ class _CreateImageScreenState extends State<CreateImageScreen> {
   final TextEditingController imageLinkController = TextEditingController();
   final TextEditingController tagsController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void dispose() {
@@ -63,23 +66,30 @@ class _CreateImageScreenState extends State<CreateImageScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      key: scaffoldKey,
+      endDrawer: const EndDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: Align(
-          alignment: const AlignmentDirectional(-1, 1),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: SvgPicture.asset(
-              'assets/images/icons/arrow.svg',
-              width: 16,
-              height: 16,
-              fit: BoxFit.cover,
-            ),
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/icons/arrow.svg',
+            width: 16,
+            height: 16,
+            fit: BoxFit.cover,
           ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              scaffoldKey.currentState!.openEndDrawer();
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -111,6 +121,9 @@ class _CreateImageScreenState extends State<CreateImageScreen> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: const BottomNavBar(
+        selectedIndex: 2,
       ),
     );
   }
