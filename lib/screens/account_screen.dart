@@ -56,9 +56,9 @@ class _AccountScreenState extends State<AccountScreen> {
 
   void fetchImagesByAccountName(accountName) async {
     try {
-      var result = await apiService.fetchImagesByAccountName(accountName);
+      var result = await apiService.fetchImagesByAccountName(accountName, 0, 100);
       setState(() {
-        imagesData = result;
+        imagesData = result.content;
         isLoading = false;
       });
     } catch (e) {

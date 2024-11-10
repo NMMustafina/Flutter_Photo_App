@@ -172,9 +172,20 @@ class ApiService {
     return false;
   }
 
+  // GET-запрос для получения случайного изображения
+  Future<ImageModel> fetchRandomImages() async {
+    try {
+      var response = await _unAuthClient.get('/random-image');
+      ImageModel image = ImageModel.fromJson(response.data);
+      return image;
+    } catch (e) {
+      print("Ошибка при получении изображений: $e");
+      rethrow;
+    }
+  }
+
   // GET-запрос для получения всех изображений
-  Future<PageData<ImageModel>> fetchImagesData(
-      int page, int size, String sort, bool isAscending) async {
+  Future<PageData<ImageModel>> fetchImagesData(int page, int size, String sort, bool isAscending) async {
     try {
       String sortOrder = isAscending ? "ASC" : "DESC";
       var response = await _client.dio.get('/images?size=$size&page=$page&sort=$sort,$sortOrder');
@@ -188,35 +199,8 @@ class ApiService {
     }
   }
 
-  Future<ImageModel> fetchRandomImages() async {
-    try {
-      var response = await _unAuthClient.get('/random-image');
-      ImageModel image = ImageModel.fromJson(response.data);
-      return image;
-    } catch (e) {
-      print("Ошибка при получении изображений: $e");
-      rethrow;
-    }
-  }
-
-  // GET-запрос для получения изображений пользователя
-  Future<List<ImageModel>> fetchImagesByUserId(int userId) async {
-    try {
-      var response = await _client.dio.get('/images/by-user-id/$userId');
-      PageData<ImageModel> imagePage = PageData.fromJson(
-        response.data,
-        (json) => ImageModel.fromJson(json as Map<String, dynamic>),
-      );
-      return imagePage.content;
-    } catch (e) {
-      print("Ошибка при получении изображений: $e");
-      rethrow;
-    }
-  }
-
   // GET-запрос для получения изображений по tag
-  Future<PageData<ImageModel>> fetchImagesByTag(
-      String tag, int page, int size) async {
+  Future<PageData<ImageModel>> fetchImagesByTag(String tag, int page, int size) async {
     try {
       var response =
           await _client.dio.get('/images/by-tag/$tag?size=$size&page=$page');
@@ -231,21 +215,21 @@ class ApiService {
   }
 
   // GET-запрос для получения изображений по accountName
-  Future<List<ImageModel>> fetchImagesByAccountName(String accountName) async {
+  Future<PageData<ImageModel>> fetchImagesByAccountName(String accountName, int page, int size) async {
     try {
-      var response = await _client.dio.get('/images/by-account/$accountName');
-      PageData<ImageModel> imagePage = PageData.fromJson(
+      var response =
+      await _client.dio.get('/images/by-account/$accountName?size=$size&page=$page');
+      return PageData.fromJson(
         response.data,
-        (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+            (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
-      return imagePage.content;
     } catch (e) {
       print("Ошибка при получении изображений: $e");
       rethrow;
     }
   }
 
-// DELETE-запрос для удаления изображения
+  // DELETE-запрос для удаления изображения
   Future<Response> deleteImage(int imageId) async {
     try {
       return await _client.dio.delete('/images/$imageId');
@@ -254,17 +238,4 @@ class ApiService {
       rethrow;
     }
   }
-
-////////////////////////////////////////////////////////
-// PUT-запрос для обновления данных пользователя
-// Future<Response> updateUser(
-//     String userId, Map<String, dynamic> userData) async {
-//   try {
-//     return await _client.dio.put('/user/$userId', data: userData);
-//   } catch (e) {
-//     print("Ошибка при обновлении пользователя: $e");
-//     rethrow;
-//   }
-// }
-//
 }

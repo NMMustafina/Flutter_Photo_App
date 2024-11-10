@@ -24,8 +24,14 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = true;
+
   late UserModel userData;
+
   late List<ImageModel> imagesData = [];
+  late int imageDataPage = 0;
+  late bool imageDataLastPage = false;
+
+  final apiService = GetIt.instance<ApiService>();
 
   @override
   void initState() {
@@ -36,7 +42,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void fetchUserDataByAccountName(accountName) async {
     try {
-      final apiService = GetIt.instance<ApiService>();
       var result = await apiService.fetchUserDataByAccountName(accountName);
       setState(() {
         userData = result;
@@ -52,10 +57,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void fetchImagesByAccountName(accountName) async {
     try {
-      final apiService = GetIt.instance<ApiService>();
-      var result = await apiService.fetchImagesByAccountName(accountName);
+      int size = 4;
+      var result = await apiService.fetchImagesByAccountName(
+          accountName, imageDataPage, size);
       setState(() {
-        imagesData = result;
+        imagesData.addAll(result.content);
+        imageDataPage = result.number;
+        imageDataLastPage = result.last;
         isLoading = false;
       });
     } catch (e) {
@@ -161,8 +169,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                       ImagesMasonryGrid(
-                        imagesData: imagesData,
-                      ),
+                          imagesData: imagesData,
+                          imageDataLastPage: imageDataLastPage,
+                          onEndReached: () {
+                            imageDataPage += 1;
+                            fetchImagesByAccountName(widget.accountName);
+                          }),
                     ],
                   ),
                 ),

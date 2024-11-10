@@ -21,16 +21,42 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = true;
+
   late List<ImageModel> imagesData = [];
+  late int imageDataPage = 0;
+  late bool imageDataLastPage = false;
+
   final apiService = GetIt.instance<ApiService>();
   final formKey = GlobalKey<FormState>();
   final TextEditingController tagsController = TextEditingController();
 
   void fetchImagesByTag(tag) async {
     try {
-      var result = await apiService.fetchImagesByTag(tag);
+      int size = 2;
+      imageDataPage = 0;
+      var result = await apiService.fetchImagesByTag(tag, imageDataPage, size);
       setState(() {
-        imagesData = result;
+        imagesData = result.content;
+        imageDataPage = result.number;
+        imageDataLastPage = result.last;
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Ошибка: $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void fetchNextPage(tag) async {
+    try {
+      int size = 2;
+      var result = await apiService.fetchImagesByTag(tag, imageDataPage, size);
+      setState(() {
+        imagesData.addAll(result.content);
+        imageDataPage = result.number;
+        imageDataLastPage = result.last;
         isLoading = false;
       });
     } catch (e) {
@@ -128,7 +154,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const MainTitle(textTitle: 'All Results'),
-                                  ImagesGrid(imagesData: imagesData),
+                                  ImagesGrid(
+                                      imagesData: imagesData,
+                                      imageDataLastPage: imageDataLastPage,
+                                      onEndReached: () {
+                                        imageDataPage += 1;
+                                        fetchNextPage(tagsController.text);
+                                      }),
                                 ],
                               ),
                             ),

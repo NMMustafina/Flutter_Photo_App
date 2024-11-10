@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:photo_app/models/image_model.dart';
 import 'package:photo_app/widgets/image_small.dart';
+import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class ImagesMasonryGrid extends StatelessWidget {
   final List<ImageModel> imagesData;
+  final bool imageDataLastPage;
+  final VoidCallback onEndReached;
 
-  const ImagesMasonryGrid({super.key, required this.imagesData});
+  const ImagesMasonryGrid(
+      {super.key,
+      required this.imagesData,
+      required this.imageDataLastPage,
+      required this.onEndReached});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +43,14 @@ class ImagesMasonryGrid extends StatelessWidget {
                 );
               },
             ),
+          ),
+          PrimaryOutlinedButton(
+            textButton: 'See More',
+            onPressed: imageDataLastPage
+                ? null // Если условие истинно, кнопка отключается
+                : () {
+                    onEndReached();
+                  },
           ),
         ],
       ),

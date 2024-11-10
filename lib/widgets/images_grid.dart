@@ -5,8 +5,14 @@ import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class ImagesGrid extends StatelessWidget {
   final List<ImageModel> imagesData;
+  final bool imageDataLastPage;
+  final VoidCallback onEndReached;
 
-  const ImagesGrid({super.key, required this.imagesData});
+  const ImagesGrid(
+      {super.key,
+      required this.imagesData,
+      required this.imageDataLastPage,
+      required this.onEndReached});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +25,8 @@ class ImagesGrid extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 32),
             child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap:
-                  true, // займет место только для элементов, а не всё доступное пространство
+              shrinkWrap: true,
+              // займет место только для элементов, а не всё доступное пространство
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 10,
@@ -41,7 +47,11 @@ class ImagesGrid extends StatelessWidget {
           ),
           PrimaryOutlinedButton(
             textButton: 'See More',
-            onPressed: () {},
+            onPressed: imageDataLastPage
+                ? null // Если условие истинно, кнопка отключается
+                : () {
+                    onEndReached();
+                  },
           ),
         ],
       ),

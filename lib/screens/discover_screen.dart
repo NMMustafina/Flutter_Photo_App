@@ -9,7 +9,6 @@ import 'package:photo_app/widgets/images_masonry_grid.dart';
 import 'package:photo_app/widgets/images_list.dart';
 import 'package:photo_app/widgets/main_title.dart';
 import 'package:photo_app/widgets/main_heading.dart';
-import 'package:photo_app/widgets/primary_outlined_button.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
@@ -24,10 +23,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   late List<ImageModel> imagesData = [];
   late int imageDataPage = 0;
+  late bool imageDataLastPage = false;
 
   late List<ImageModel> allImages = [];
   late int allImagesPage = 0;
   late bool allImagesLastPage = false;
+
   final apiService = GetIt.instance<ApiService>();
 
   @override
@@ -39,11 +40,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   void fetchImagesByTag(tag) async {
     try {
-      int size = 4;
+      int size = 2;
       var result = await apiService.fetchImagesByTag(tag, imageDataPage, size);
       setState(() {
         imagesData.addAll(result.content);
         imageDataPage = result.number;
+        imageDataLastPage = result.last;
         isLoading = false;
       });
     } catch (e) {
@@ -122,7 +124,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         ],
                       ),
                     ),
-                    ImagesList(imagesData: imagesData),
+                    ImagesList(
+                      imagesData: imagesData,
+                      onEndReached: () {
+                        if (!isLoading && !imageDataLastPage) {
+                          imageDataPage += 1;
+                          fetchImagesByTag('whats-new');
+                        }
+                      },
+                    ),
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
@@ -131,16 +141,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const MainTitle(textTitle: 'Browse all'),
-                          ImagesMasonryGrid(imagesData: allImages),
-                          PrimaryOutlinedButton(
-                            textButton: 'See More',
-                            onPressed: allImagesLastPage
-                                ? null // Если условие истинно, кнопка отключается
-                                : () {
-                                    allImagesPage += 1;
-                                    fetchAllImages();
-                                  },
-                          ),
+                          ImagesMasonryGrid(
+                              imagesData: allImages,
+                              imageDataLastPage: allImagesLastPage,
+                              onEndReached: () {
+                                allImagesPage += 1;
+                                fetchAllImages();
+                              }),
                         ],
                       ),
                     ),
