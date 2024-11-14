@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photo_app/models/image_model.dart';
+import 'package:photo_app/models/models.dart';
 import 'package:photo_app/services/api_service.dart';
-import 'package:photo_app/widgets/bottom_nav_bar.dart';
-import 'package:photo_app/widgets/end_drawer.dart';
-import 'package:photo_app/widgets/images_masonry_grid.dart';
-import 'package:photo_app/widgets/images_list.dart';
-import 'package:photo_app/widgets/main_title.dart';
-import 'package:photo_app/widgets/main_heading.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});

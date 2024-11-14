@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:photo_app/screens/create_image_screen.dart';
-import 'package:photo_app/theme/app_theme.dart';
 import 'package:provider/provider.dart';
-import 'package:photo_app/models/user_provider.dart';
+import 'package:photo_app/models/models.dart';
+import 'package:photo_app/screens/screens.dart';
 import 'package:photo_app/services/service_locator.dart';
-import 'package:photo_app/screens/account_screen.dart';
-import 'package:photo_app/screens/base_screen.dart';
-import 'package:photo_app/screens/chats_screen.dart';
-import 'package:photo_app/screens/discover_screen.dart';
-import 'package:photo_app/screens/login_screen.dart';
-import 'package:photo_app/screens/search_screen.dart';
-import 'package:photo_app/screens/test.dart';
+import 'package:photo_app/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,8 +37,10 @@ class PhotoApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         //  '/test': (context) => const MyApp(),
+        '/': (context) => const BaseScreen(),
         '/home': (context) => const BaseScreen(),
         '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
         '/discover': (context) => const DiscoverScreen(),
         '/account': (context) => const AccountScreen(),
         '/create_image': (context) => const CreateImageScreen(),

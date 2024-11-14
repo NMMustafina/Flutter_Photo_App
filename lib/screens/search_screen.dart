@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photo_app/models/image_model.dart';
+import 'package:photo_app/models/models.dart';
 import 'package:photo_app/services/api_service.dart';
 import 'package:photo_app/theme/styling.dart';
-import 'package:photo_app/widgets/bottom_nav_bar.dart';
-import 'package:photo_app/widgets/end_drawer.dart';
-import 'package:photo_app/widgets/images_grid.dart';
-import 'package:photo_app/widgets/main_heading.dart';
-import 'package:photo_app/widgets/form_field_text.dart';
-import 'package:photo_app/widgets/main_title.dart';
-import 'package:photo_app/widgets/primary_elevated_button.dart';
+import 'package:photo_app/widgets/widgets.dart';
+
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

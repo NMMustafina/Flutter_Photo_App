@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_app/widgets/image_full.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class ImageSmall extends StatelessWidget {
   final String imageUrl;

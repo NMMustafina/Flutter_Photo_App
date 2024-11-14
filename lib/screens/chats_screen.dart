@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:photo_app/screens/individual_chats_screen.dart';
-import 'package:photo_app/widgets/bottom_nav_bar.dart';
-import 'package:photo_app/widgets/chats_item.dart';
-import 'package:photo_app/widgets/end_drawer.dart';
-import 'package:photo_app/widgets/main_title.dart';
+import 'package:photo_app/screens/screens.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({super.key});

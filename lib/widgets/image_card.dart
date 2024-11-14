@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_app/widgets/image_small.dart';
-import 'package:photo_app/widgets/user_info.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class ImageCard extends StatelessWidget {
   final String imageLink;

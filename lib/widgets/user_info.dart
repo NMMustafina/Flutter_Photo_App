@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_app/screens/profile_screen.dart';
+import 'package:photo_app/screens/screens.dart';
 import 'package:photo_app/theme/styling.dart';
 
 class UserInfo extends StatelessWidget {

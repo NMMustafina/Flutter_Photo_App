@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photo_app/models/image_model.dart';
-import 'package:photo_app/screens/login_screen.dart';
-import 'package:photo_app/screens/register_screen.dart';
+import 'package:photo_app/models/models.dart';
 import 'package:photo_app/services/api_service.dart';
 import 'package:photo_app/theme/styling.dart';
-import 'package:photo_app/widgets/primary_outlined_button.dart';
-import 'package:photo_app/widgets/primary_elevated_button.dart';
-import 'package:photo_app/widgets/user_info.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -118,12 +114,7 @@ class _BaseScreenState extends State<BaseScreen> {
                   child: PrimaryOutlinedButton(
                     textButton: "Log in",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, '/login');
                     },
                   ),
                 ),
@@ -132,12 +123,7 @@ class _BaseScreenState extends State<BaseScreen> {
                   child: PrimaryElevatedButton(
                     textButton: "Register",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, '/register');
                     },
                   ),
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/theme/styling.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:photo_app/widgets/end_drawer_primary_button.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class EndDrawer extends StatelessWidget {
   const EndDrawer({super.key});

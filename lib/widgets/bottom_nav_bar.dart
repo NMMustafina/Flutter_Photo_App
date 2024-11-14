@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:photo_app/widgets/custom_stack_icon.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int selectedIndex;

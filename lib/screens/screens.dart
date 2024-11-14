@@ -1,0 +1,11 @@
+export 'account_screen.dart';
+export 'base_screen.dart';
+export 'chats_screen.dart';
+export 'create_image_screen.dart';
+export 'create_message_screen.dart';
+export 'discover_screen.dart';
+export 'individual_chats_screen.dart';
+export 'login_screen.dart';
+export 'profile_screen.dart';
+export 'register_screen.dart';
+export 'search_screen.dart';

@@ -3,12 +3,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photo_app/models/register_request.dart';
+import 'package:photo_app/models/models.dart';
 import 'package:photo_app/services/api_service.dart';
-import 'package:photo_app/widgets/primary_elevated_button.dart';
-import 'package:photo_app/widgets/main_heading.dart';
-import 'package:photo_app/widgets/form_field_text.dart';
-import 'package:photo_app/widgets/main_snack_bar.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

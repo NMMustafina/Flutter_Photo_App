@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/models/image_model.dart';
-import 'package:photo_app/widgets/image_small.dart';
-import 'package:photo_app/widgets/primary_outlined_button.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class ImagesGrid extends StatelessWidget {
   final List<ImageModel> imagesData;

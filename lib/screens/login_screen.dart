@@ -3,14 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photo_app/models/auth_request.dart';
-import 'package:photo_app/models/user_model.dart';
-import 'package:photo_app/models/user_provider.dart';
+import 'package:photo_app/models/models.dart';
 import 'package:photo_app/services/api_service.dart';
-import 'package:photo_app/widgets/primary_elevated_button.dart';
-import 'package:photo_app/widgets/main_heading.dart';
-import 'package:photo_app/widgets/form_field_text.dart';
-import 'package:photo_app/widgets/main_snack_bar.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

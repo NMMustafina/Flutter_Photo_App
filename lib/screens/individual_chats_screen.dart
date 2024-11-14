@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_app/widgets/individual_chats_recipient.dart';
-import 'package:photo_app/widgets/individual_chats_sender.dart';
-import 'package:photo_app/widgets/main_title.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class IndividualChatsScreen extends StatefulWidget {
   const IndividualChatsScreen({super.key});

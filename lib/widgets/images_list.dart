@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/models/image_model.dart';
-import 'package:photo_app/widgets/image_card.dart';
+import 'package:photo_app/widgets/widgets.dart';
 
 class ImagesList extends StatefulWidget {
   final List<ImageModel> imagesData;
