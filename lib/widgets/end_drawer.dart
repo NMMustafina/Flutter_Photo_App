@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/theme/styling.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:photo_app/widgets/end_drawer_primary_button.dart';
 
@@ -62,13 +63,9 @@ class EndDrawer extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 ),
-                child: const Text(
+                child: Text(
                   'Log out',
-                  style: TextStyle(
-                    fontFamily: 'Comfortaa',
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
+                  style: h18Regular.copyWith(color: Colors.white),
                 ),
               ),
             ),

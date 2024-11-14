@@ -19,11 +19,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       key: scaffoldKey,
       endDrawer: const EndDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
         leading: IconButton(
           icon: SvgPicture.asset(
             'assets/images/icons/arrow.svg',

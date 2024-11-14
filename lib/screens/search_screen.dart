@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:photo_app/models/image_model.dart';
 import 'package:photo_app/services/api_service.dart';
+import 'package:photo_app/theme/styling.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
 import 'package:photo_app/widgets/images_grid.dart';
@@ -76,11 +77,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       key: scaffoldKey,
       endDrawer: const EndDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
         leading: IconButton(
           icon: SvgPicture.asset(
             'assets/images/icons/arrow.svg',
@@ -139,11 +138,10 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         )
                       : imagesData.isEmpty
-                          ? const Center(
+                          ? Center(
                               child: Text(
                                 'No results found.',
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.grey),
+                                style: b16Regular.copyWith(color: Colors.grey),
                               ),
                             )
                           : Padding(

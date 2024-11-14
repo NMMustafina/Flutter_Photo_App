@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class PrimaryElevatedButton extends StatelessWidget {
   final String textButton;
@@ -26,11 +27,7 @@ class PrimaryElevatedButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),
-          textStyle: const TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 13,
-            fontWeight: FontWeight.w900,
-          ),
+          textStyle: b13Bold,
         ),
         child: Text(textButton.toUpperCase()),
       ),

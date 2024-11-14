@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class IndividualChatsSender extends StatelessWidget {
   final String avatar;
@@ -47,10 +48,7 @@ class IndividualChatsSender extends StatelessWidget {
                   padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                   child: Text(
                     textMessage,
-                    style: const TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 13,
-                    ),
+                    style: b13Regular,
                   ),
                 ),
               ),

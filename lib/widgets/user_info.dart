@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/screens/profile_screen.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class UserInfo extends StatelessWidget {
   final String avatar;
@@ -18,6 +19,7 @@ class UserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -52,20 +54,11 @@ class UserInfo extends StatelessWidget {
               children: [
                 Text(
                   fullName,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
-                  ),
+                  style: b13Bold.copyWith(color: textColor),
                 ),
                 Text(
                   accountName,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 11,
-                    color: textColor,
-                  ),
+                  style: b11Regular.copyWith(color: textColor),
                 ),
               ],
             ),

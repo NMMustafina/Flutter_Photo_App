@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class MainHeading extends StatelessWidget {
   final String textHeading;
@@ -13,10 +14,7 @@ class MainHeading extends StatelessWidget {
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: Text(
         textHeading,
-        style: const TextStyle(
-          fontFamily: 'Comfortaa',
-          fontSize: 36,
-        ),
+        style: h36Regular,
       ),
     );
   }

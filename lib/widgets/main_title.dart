@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class MainTitle extends StatelessWidget {
   final String textTitle;
@@ -13,11 +14,7 @@ class MainTitle extends StatelessWidget {
       padding: EdgeInsets.only(bottom: paddingBottom),
       child: Text(
         textTitle.toUpperCase(),
-        style: const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 13,
-          fontWeight: FontWeight.w900,
-        ),
+        style: b13Bold,
       ),
     );
   }

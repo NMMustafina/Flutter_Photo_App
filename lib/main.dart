@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/screens/create_image_screen.dart';
+import 'package:photo_app/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:photo_app/models/user_provider.dart';
 import 'package:photo_app/services/service_locator.dart';
@@ -37,12 +38,9 @@ class PhotoApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Photo App',
-      theme: ThemeData(
-        primaryColor: Colors.black,
-        fontFamily: 'Roboto',
-        useMaterial3: true,
-      ),
-      home: const BaseScreen(),
+      theme: AppTheme.lightTheme,
+      //darkTheme: AppTheme.darkTheme,
+      // themeMode: ThemeMode.system, // Поддержка переключения светлой и тёмной тем
       initialRoute: '/',
       routes: {
         //  '/test': (context) => const MyApp(),

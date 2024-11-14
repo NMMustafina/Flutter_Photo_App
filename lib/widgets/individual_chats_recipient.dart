@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class IndividualChatsRecipient extends StatelessWidget {
   final String avatar;
@@ -39,10 +40,7 @@ class IndividualChatsRecipient extends StatelessWidget {
                           const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                       child: Text(
                         textMessage,
-                        style: const TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 13,
-                        ),
+                        style: b13Regular,
                       ),
                     ),
                   ),

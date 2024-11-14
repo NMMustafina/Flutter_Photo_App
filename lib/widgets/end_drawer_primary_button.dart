@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class EndDrawerPrimaryButton extends StatelessWidget {
   final String title;
@@ -14,6 +15,7 @@ class EndDrawerPrimaryButton extends StatelessWidget {
         Expanded(
           child: TextButton(
             onPressed: () {
+              Navigator.pop(context);
               Navigator.pushNamed(context, routeName);
             },
             style: TextButton.styleFrom(
@@ -24,10 +26,7 @@ class EndDrawerPrimaryButton extends StatelessWidget {
             ),
             child: Text(
               title,
-              style: const TextStyle(
-                fontFamily: 'Comfortaa',
-                fontSize: 24,
-              ),
+              style: h24Regular,
             ),
           ),
         ),

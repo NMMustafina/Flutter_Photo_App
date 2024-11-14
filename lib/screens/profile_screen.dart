@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:photo_app/models/image_model.dart';
 import 'package:photo_app/models/user_model.dart';
+import 'package:photo_app/screens/create_message_screen.dart';
 import 'package:photo_app/services/api_service.dart';
 import 'package:photo_app/widgets/bottom_nav_bar.dart';
 import 'package:photo_app/widgets/end_drawer.dart';
@@ -77,11 +78,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       key: scaffoldKey,
       endDrawer: const EndDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
         leading: IconButton(
           icon: SvgPicture.asset(
             'assets/images/icons/arrow.svg',
@@ -163,7 +162,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             textButton: 'Message',
                             paddingBottom: 30,
                             onPressed: () {
-                              Navigator.pushNamed(context, '/chats');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateMessageScreen(userId: userData.id),
+                                ),
+                              );
                             },
                           ),
                         ],

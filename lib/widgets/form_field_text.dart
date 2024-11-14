@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class FormFieldText extends StatefulWidget {
   final String textHint;
@@ -43,16 +44,9 @@ class _FormFieldTextState extends State<FormFieldText> {
         autofocus: true,
         decoration: InputDecoration(
           isDense: true,
-          labelStyle: const TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 15,
-          ),
+          labelStyle: b15Regular,
           hintText: widget.textHint,
-          hintStyle: const TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 15,
-            fontWeight: FontWeight.normal,
-          ),
+          hintStyle: b15Regular,
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
               color: Colors.black,
@@ -100,10 +94,7 @@ class _FormFieldTextState extends State<FormFieldText> {
                 )
               : null,
         ),
-        style: const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 15,
-        ),
+        style: b15Regular,
         maxLines: 1,
         inputFormatters: [LengthLimitingTextInputFormatter(50)],
         keyboardType: TextInputType.emailAddress,

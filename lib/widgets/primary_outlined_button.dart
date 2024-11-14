@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_app/theme/styling.dart';
 
 class PrimaryOutlinedButton extends StatelessWidget {
   final String textButton;
@@ -48,13 +49,7 @@ class PrimaryOutlinedButton extends StatelessWidget {
           ),
           shape: WidgetStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))),
-          textStyle: WidgetStateProperty.all(
-            const TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 13,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
+          textStyle: WidgetStateProperty.all(b13Bold),
         ),
         child: Text(textButton.toUpperCase()),
       ),

@@ -5,6 +5,7 @@ import 'package:photo_app/models/image_model.dart';
 import 'package:photo_app/screens/login_screen.dart';
 import 'package:photo_app/screens/register_screen.dart';
 import 'package:photo_app/services/api_service.dart';
+import 'package:photo_app/theme/styling.dart';
 import 'package:photo_app/widgets/primary_outlined_button.dart';
 import 'package:photo_app/widgets/primary_elevated_button.dart';
 import 'package:photo_app/widgets/user_info.dart';
@@ -45,7 +46,6 @@ class _BaseScreenState extends State<BaseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: isLoading
           ? const Center(
           child: CircularProgressIndicator(
@@ -86,14 +86,11 @@ class _BaseScreenState extends State<BaseScreen> {
                               height: 38,
                               fit: BoxFit.cover,
                             ),
-                            const Padding(
+                             const Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                               child: Text(
                                 'photo',
-                                style: TextStyle(
-                                  fontFamily: 'Comfortaa',
-                                  fontSize: 48,
-                                ),
+                                style: h48Regular,
                               ),
                             ),
                           ],
