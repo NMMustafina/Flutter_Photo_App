@@ -62,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           'Unknown error! Try again or contact support.',
           true,
         );
-        print("Результат регистрации: $result");
+        debugPrint("Результат регистрации: $result");
       }
 
       emailController.clear();

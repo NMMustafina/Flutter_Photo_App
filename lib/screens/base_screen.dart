@@ -32,7 +32,7 @@ class _BaseScreenState extends State<BaseScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       setState(() {
         isLoading = false;
       });

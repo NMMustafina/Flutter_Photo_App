@@ -54,7 +54,7 @@ class _AccountScreenState extends State<AccountScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       setState(() {
         isLoading = false;
       });
@@ -112,7 +112,7 @@ class _AccountScreenState extends State<AccountScreen> {
         await apiService.deleteImage(imageId);
         fetchImagesByAccountName(accountName);
       } catch (e) {
-        print("Ошибка: $e");
+        debugPrint("Ошибка: $e");
         setState(() {
           isLoading = false;
         });

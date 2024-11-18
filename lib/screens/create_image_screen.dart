@@ -52,7 +52,7 @@ class _CreateImageScreenState extends State<CreateImageScreen> {
           'Unknown error! Try again or contact support.',
           true,
         );
-        print("Результат создания нового изображения: $result");
+        debugPrint("Результат создания нового изображения: $result");
       }
 
       imageLinkController.clear();

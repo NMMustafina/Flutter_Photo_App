@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../config/config.dart';
+import 'package:photo_app/config/config.dart';
 
 class ApiClient {
   final Dio _dio = Dio(BaseOptions(baseUrl: Config.baseUrl));
@@ -54,7 +55,7 @@ class ApiClient {
 
       }
     } catch (e) {
-      print("Ошибка при обновлении токена: $e");
+      debugPrint("Ошибка при обновлении токена: $e");
     }
     return false;
   }

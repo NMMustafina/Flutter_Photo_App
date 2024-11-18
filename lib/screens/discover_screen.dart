@@ -44,7 +44,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       setState(() {
         isLoading = false;
       });
@@ -63,7 +63,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       setState(() {
         isLoading = false;
       });

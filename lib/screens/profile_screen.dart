@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       setState(() {
         isLoading = false;
       });
@@ -61,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       setState(() {
         isLoading = false;
       });

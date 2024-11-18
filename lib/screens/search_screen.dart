@@ -38,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       setState(() {
         isLoading = false;
       });
@@ -56,7 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
         isLoading = false;
       });
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       setState(() {
         isLoading = false;
       });

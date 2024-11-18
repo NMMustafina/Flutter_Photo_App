@@ -1,15 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:photo_app/models/account_update_request.dart';
-import 'package:photo_app/models/auth_request.dart';
-import 'package:photo_app/models/create_image_request.dart';
-import 'package:photo_app/models/image_model.dart';
-import 'package:photo_app/models/page_data.dart';
-import 'package:photo_app/models/register_request.dart';
-import 'package:photo_app/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../config/config.dart';
-import '../models/token_pair_response.dart';
-import 'api_client.dart';
+import 'package:photo_app/models/models.dart';
+import 'package:photo_app/config/config.dart';
+import 'package:photo_app/services/api_client.dart';
 
 class ApiService {
   final ApiClient _client = ApiClient();
@@ -19,7 +13,7 @@ class ApiService {
   Future<bool> loginUser(AuthRequest authRequest) async {
     try {
       // Отправляем запрос
-      var response =
+      final response =
           await _unAuthClient.post('/login', data: authRequest.toJson());
 
       // Проверяем статус ответа
@@ -37,40 +31,40 @@ class ApiService {
         return true;
         //TODO оторбражать на экране ошибку авторизации, когда нибудь
       } else {
-        print("Ошибка при входе: ${response.statusCode}");
+        debugPrint("Ошибка при входе: ${response.statusCode}");
         return false;
       }
     } catch (e) {
-      print("Ошибка: $e");
+      debugPrint("Ошибка: $e");
       return false;
     }
   }
 
   // POST-запрос для регистрации пользователя
   Future<bool> registerUser(RegisterRequest registerRequest) async {
-    print("Попытка регистрации");
+    debugPrint("Попытка регистрации");
     try {
-      var response =
+      final response =
           await _unAuthClient.post('/register', data: registerRequest.toJson());
 
       if (response.statusCode == 200) {
-        print("Регистрация прошла успешно");
+        debugPrint("Регистрация прошла успешно");
         return true;
       } else {
-        print(
+        debugPrint(
             "Ошибка регистрации: ${response.statusCode}, ${response.data['message']}");
       }
     } on DioException catch (e) {
       // Проверяем, произошла ли ошибка на уровне HTTP-запроса
       if (e.response != null) {
-        print(
+        debugPrint(
             "Ошибка HTTP-запроса: ${e.response?.statusCode}, ${e.response?.data['message']}");
       } else {
-        print("Ошибка при подключении: ${e.message}");
+        debugPrint("Ошибка при подключении: ${e.message}");
       }
     } catch (e) {
       // Обработка любой другой ошибки
-      print("Ошибка регистрации: $e");
+      debugPrint("Ошибка регистрации: $e");
     }
 
     return false;
@@ -78,29 +72,29 @@ class ApiService {
 
   // POST-запрос для обновления данных пользователя
   Future<bool> accountUpdate(AccountUpdateRequest accountUpdateRequest) async {
-    print("Попытка обновления данных пользователя");
+    debugPrint("Попытка обновления данных пользователя");
     try {
-      var response = await _client.dio
+      final response = await _client.dio
           .put('/user/me', data: accountUpdateRequest.toJson());
 
       if (response.statusCode == 200) {
-        print("Обновление данных пользователя прошло успешно");
+        debugPrint("Обновление данных пользователя прошло успешно");
         return true;
       } else {
-        print(
+        debugPrint(
             "Ошибка обновления данных пользователя: ${response.statusCode}, ${response.data['message']}");
       }
     } on DioException catch (e) {
       // Проверяем, произошла ли ошибка на уровне HTTP-запроса
       if (e.response != null) {
-        print(
+        debugPrint(
             "Ошибка HTTP-запроса: ${e.response?.statusCode}, ${e.response?.data['message']}");
       } else {
-        print("Ошибка при подключении: ${e.message}");
+        debugPrint("Ошибка при подключении: ${e.message}");
       }
     } catch (e) {
       // Обработка любой другой ошибки
-      print("Ошибка регистрации: $e");
+      debugPrint("Ошибка регистрации: $e");
     }
 
     return false;
@@ -109,11 +103,11 @@ class ApiService {
   // GET-запрос для получения данных своего пользователя
   Future<UserModel> fetchCurrentUserData() async {
     try {
-      var response = await _client.dio.get('/user/me');
+      final response = await _client.dio.get('/user/me');
       UserModel user = UserModel.fromJson(response.data);
       return user;
     } catch (e) {
-      print("Ошибка при получении данных пользователя: $e");
+      debugPrint("Ошибка при получении данных пользователя: $e");
       rethrow;
     }
   }
@@ -121,11 +115,11 @@ class ApiService {
   // GET-запрос для получения данных пользователя
   Future<UserModel> fetchUserData(int userId) async {
     try {
-      var response = await _client.dio.get('/user/$userId');
+      final response = await _client.dio.get('/user/$userId');
       UserModel user = UserModel.fromJson(response.data);
       return user;
     } catch (e) {
-      print("Ошибка при получении данных пользователя: $e");
+      debugPrint("Ошибка при получении данных пользователя: $e");
       rethrow;
     }
   }
@@ -133,40 +127,40 @@ class ApiService {
   // GET-запрос для получения данных пользователя по accountName
   Future<UserModel> fetchUserDataByAccountName(String accountName) async {
     try {
-      var response = await _client.dio.get('/user/account/$accountName');
+      final response = await _client.dio.get('/user/account/$accountName');
       UserModel user = UserModel.fromJson(response.data);
       return user;
     } catch (e) {
-      print("Ошибка при получении данных пользователя: $e");
+      debugPrint("Ошибка при получении данных пользователя: $e");
       rethrow;
     }
   }
 
   // POST-запрос для создания нового изображения
   Future<bool> createImage(CreateImageRequest createImageRequest) async {
-    print("Попытка создания нового изображения");
+    debugPrint("Попытка создания нового изображения");
     try {
-      var response = await _client.dio
+      final response = await _client.dio
           .post('/images/create', data: createImageRequest.toJson());
 
       if (response.statusCode == 200) {
-        print("Создание нового изображения прошло успешно");
+        debugPrint("Создание нового изображения прошло успешно");
         return true;
       } else {
-        print(
+        debugPrint(
             "Ошибка создания нового изображения: ${response.statusCode}, ${response.data['message']}");
       }
     } on DioException catch (e) {
       // Проверяем, произошла ли ошибка на уровне HTTP-запроса
       if (e.response != null) {
-        print(
+        debugPrint(
             "Ошибка HTTP-запроса: ${e.response?.statusCode}, ${e.response?.data['message']}");
       } else {
-        print("Ошибка при подключении: ${e.message}");
+        debugPrint("Ошибка при подключении: ${e.message}");
       }
     } catch (e) {
       // Обработка любой другой ошибки
-      print("Ошибка создания нового изображения: $e");
+      debugPrint("Ошибка создания нового изображения: $e");
     }
 
     return false;
@@ -175,11 +169,11 @@ class ApiService {
   // GET-запрос для получения случайного изображения
   Future<ImageModel> fetchRandomImages() async {
     try {
-      var response = await _unAuthClient.get('/random-image');
+      final response = await _unAuthClient.get('/random-image');
       ImageModel image = ImageModel.fromJson(response.data);
       return image;
     } catch (e) {
-      print("Ошибка при получении изображений: $e");
+      debugPrint("Ошибка при получении изображений: $e");
       rethrow;
     }
   }
@@ -188,13 +182,13 @@ class ApiService {
   Future<PageData<ImageModel>> fetchImagesData(int page, int size, String sort, bool isAscending) async {
     try {
       String sortOrder = isAscending ? "ASC" : "DESC";
-      var response = await _client.dio.get('/images?size=$size&page=$page&sort=$sort,$sortOrder');
-      return PageData.fromJson(
-        response.data,
+      final response = await _client.dio
+          .get('/images?size=$size&page=$page&sort=$sort,$sortOrder');
+      return PageData.fromJson(response.data,
         (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
     } catch (e) {
-      print("Ошибка при получении изображений: $e");
+      debugPrint("Ошибка при получении изображений: $e");
       rethrow;
     }
   }
@@ -202,29 +196,30 @@ class ApiService {
   // GET-запрос для получения изображений по tag
   Future<PageData<ImageModel>> fetchImagesByTag(String tag, int page, int size) async {
     try {
-      var response =
+      final response =
           await _client.dio.get('/images/by-tag/$tag?size=$size&page=$page');
       return PageData.fromJson(
         response.data,
         (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
     } catch (e) {
-      print("Ошибка при получении изображений: $e");
+      debugPrint("Ошибка при получении изображений: $e");
       rethrow;
     }
   }
 
   // GET-запрос для получения изображений по accountName
-  Future<PageData<ImageModel>> fetchImagesByAccountName(String accountName, int page, int size) async {
+  Future<PageData<ImageModel>> fetchImagesByAccountName(
+      String accountName, int page, int size) async {
     try {
-      var response =
-      await _client.dio.get('/images/by-account/$accountName?size=$size&page=$page');
+      final response = await _client.dio
+          .get('/images/by-account/$accountName?size=$size&page=$page');
       return PageData.fromJson(
         response.data,
-            (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+        (json) => ImageModel.fromJson(json as Map<String, dynamic>),
       );
     } catch (e) {
-      print("Ошибка при получении изображений: $e");
+      debugPrint("Ошибка при получении изображений: $e");
       rethrow;
     }
   }
@@ -234,8 +229,76 @@ class ApiService {
     try {
       return await _client.dio.delete('/images/$imageId');
     } catch (e) {
-      print("Ошибка при удалении изображения: $e");
+      debugPrint("Ошибка при удалении изображения: $e");
       rethrow;
     }
   }
+
+  // POST-запрос для создания нового сообщения
+  Future<bool> createMessage(CreateMessageRequest createMessageRequest) async {
+    debugPrint("Попытка создания нового сообщения");
+    debugPrint(createMessageRequest.toString());
+    try {
+      final response = await _client.dio
+          .post('/chats/sent-message', data: createMessageRequest.toJson());
+
+      if (response.statusCode == 200) {
+        debugPrint("Создание нового сообщения прошло успешно");
+        return true;
+      } else {
+        debugPrint(
+            "Ошибка создания нового сообщения: ${response.statusCode}, ${response.data['message']}");
+      }
+    } on DioException catch (e) {
+      // Проверяем, произошла ли ошибка на уровне HTTP-запроса
+      if (e.response != null) {
+        debugPrint(
+            "Ошибка HTTP-запроса: ${e.response?.statusCode}, ${e.response?.data['message']}");
+      } else {
+        debugPrint("Ошибка при подключении: ${e.message}");
+      }
+    } catch (e) {
+      // Обработка любой другой ошибки
+      debugPrint("Ошибка создания нового сообщения: $e");
+    }
+
+    return false;
+  }
+
+
+
+
+
+  
+  // // GET-запрос для получения сообщений
+  // Future<PageData<MessageModel>> fetchMessagesData(int page, int size, String sort, bool isAscending) async {
+  //   try {
+  //     String sortOrder = isAscending ? "ASC" : "DESC";
+  //     final response = await _client.dio
+  //         .get('/chats?size=$size&page=$page&sort=$sort,$sortOrder');
+  //     return PageData.fromJson(
+  //       response.data,
+  //           (json) => MessageModel.fromJson(json as Map<String, dynamic>),
+  //     );
+  //   } catch (e) {
+  //     debugPrint("Ошибка при получении изображений: $e");
+  //     rethrow;
+  //   }
+  // }
+  //
+  // // GET-запрос для получения сообщений по Id
+  // Future<PageData<ImageModel>> fetchMessagesById(
+  //     String accountName, int page, int size) async {
+  //   try {
+  //     final response = await _client.dio
+  //         .get('/images/by-account/$accountName?size=$size&page=$page');
+  //     return PageData.fromJson(
+  //       response.data,
+  //           (json) => ImageModel.fromJson(json as Map<String, dynamic>),
+  //     );
+  //   } catch (e) {
+  //     debugPrint("Ошибка при получении изображений: $e");
+  //     rethrow;
+  //   }
+  // }
 }

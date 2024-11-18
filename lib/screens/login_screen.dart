@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'Unknown error! Try again or contact support.',
           true,
         );
-        print("Результат авторизации: $result");
+        debugPrint("Результат авторизации: $result");
       }
     }
 
